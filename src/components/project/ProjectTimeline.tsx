@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import TypedText from "../ui/TypedText";
 import { cn } from "@/utils/misc";
@@ -46,14 +46,27 @@ export default function ProjectTimeline({
   const skipLength = 100;
   const spacing = cardWidth + cardSpacing;
 
-  // Calculate viewport edges
-  const { leftEdge, rightEdge } = useMemo(
-    () => ({
+  const [viewportEdges, setViewportEdges] = useState({
+    leftEdge: -cardWidth,
+    rightEdge: 0,
+  });
+
+  useEffect(() => {
+    setViewportEdges({
       leftEdge: -cardWidth,
       rightEdge: window.innerWidth + cardWidth,
-    }),
-    [cardWidth]
-  );
+    });
+
+    const handleResize = () => {
+      setViewportEdges({
+        leftEdge: -cardWidth,
+        rightEdge: window.innerWidth + cardWidth,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [cardWidth]);
 
   useEffect(() => {
     if (startAnimation && !hasStartedRef.current) {
@@ -73,11 +86,11 @@ export default function ProjectTimeline({
   // Initialize positions with proper spacing
   useEffect(() => {
     const initialPositions = projects.map((_, i) => {
-      return leftEdge + i * spacing;
+      return viewportEdges.leftEdge + i * spacing;
     });
     setPositions(initialPositions);
     positionsRef.current = initialPositions;
-  }, [projects.length, leftEdge, spacing]);
+  }, [projects.length, viewportEdges.leftEdge, spacing]);
 
   useEffect(() => {
     if (!isTimelineVisible) return;
@@ -100,7 +113,7 @@ export default function ProjectTimeline({
           newPositions[i] += (speed * deltaTime) / 16;
 
           // If a card goes too far right, move it to the left
-          if (newPositions[i] > rightEdge) {
+          if (newPositions[i] > viewportEdges.rightEdge) {
             const leftmostPosition = Math.min(...newPositions);
             newPositions[i] = leftmostPosition - spacing;
           }
@@ -124,7 +137,7 @@ export default function ProjectTimeline({
       cancelAnimationFrame(animationFrame);
       lastTimeRef.current = 0;
     };
-  }, [isTimelineVisible, isPaused, rightEdge, spacing, speed]);
+  }, [isTimelineVisible, isPaused, viewportEdges.rightEdge, spacing, speed]);
 
   const skipForward = () => {
     setPositions((prevPositions) => {
@@ -132,7 +145,7 @@ export default function ProjectTimeline({
         const newPosition = position + skipLength;
 
         // When a card moves past the right edge, reposition it to the left
-        if (newPosition > rightEdge) {
+        if (newPosition > viewportEdges.rightEdge) {
           const leftmostPosition = Math.min(...prevPositions);
           return leftmostPosition - spacing;
         }
@@ -147,7 +160,7 @@ export default function ProjectTimeline({
         const newPosition = position - skipLength;
 
         // When a card moves past the left edge, reposition it to the right
-        if (newPosition < leftEdge) {
+        if (newPosition < viewportEdges.leftEdge) {
           const rightmostPosition = Math.max(...prevPositions);
           return rightmostPosition + spacing;
         }
