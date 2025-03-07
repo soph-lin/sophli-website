@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { RocketLaunch } from "phosphor-react";
 import GitHubIcon from "../icons/GitHubIcon";
 import HandHeartIcon from "../icons/HandHeartIcon";
@@ -42,6 +42,25 @@ export default function ProjectCard({
   const [defaultCoverNumber] = useState(() =>
     Math.floor(Math.random() * NUM_DEFAULT_COVERS)
   );
+  const thumbnailVideoRef = useRef<HTMLVideoElement>(null);
+  const contentVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (thumbnailVideoRef.current && (playThumbnailOnHover || content)) {
+      if (isHovered) {
+        thumbnailVideoRef.current.play();
+      } else {
+        thumbnailVideoRef.current.pause();
+        thumbnailVideoRef.current.currentTime = 0;
+      }
+    }
+    if (contentVideoRef.current && isHovered) {
+      contentVideoRef.current.play();
+    } else if (contentVideoRef.current) {
+      contentVideoRef.current.pause();
+      contentVideoRef.current.currentTime = 0;
+    }
+  }, [isHovered, playThumbnailOnHover, content]);
 
   // Use default cover if no thumbnail and content provided
   const effectiveThumbnail =
@@ -84,19 +103,11 @@ export default function ProjectCard({
             className={`object-cover transition-opacity duration-300 ${
               isHovered && content ? "opacity-0" : "opacity-100"
             }`}
+            ref={thumbnailVideoRef}
             muted
             loop
             playsInline
             onLoadedMetadata={(e) => handleMediaLoad(e.currentTarget)}
-            onMouseEnter={(e) => {
-              if ((playThumbnailOnHover && !content) || content) {
-                e.currentTarget.play();
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.pause();
-              e.currentTarget.currentTime = 0;
-            }}
           />
         ) : (
           <Image
@@ -119,22 +130,14 @@ export default function ProjectCard({
           (isContentVideo ? (
             <video
               src={contentUrl}
-              className={`object-contain transition-opacity duration-300 ${
+              className={`absolute inset-0 object-contain transition-opacity duration-300 ${
                 isHovered ? "opacity-100" : "opacity-0"
               }`}
+              ref={contentVideoRef}
               muted
               loop
               playsInline
               onLoadedMetadata={(e) => handleMediaLoad(e.currentTarget)}
-              onMouseEnter={(e) => {
-                if (isHovered) {
-                  e.currentTarget.play();
-                }
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.pause();
-                e.currentTarget.currentTime = 0;
-              }}
             />
           ) : (
             <Image
