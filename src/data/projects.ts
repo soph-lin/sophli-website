@@ -37,10 +37,10 @@ const projects: ProjectCardProps[] = [
     description: "Precursor to Melody Lane, tracks history of added songs using Spotify API",
     tags: ["HTML", "CSS", "JavaScript", "Spotify API"],
     startDate: "04/2024",
-    endDate: "Present",
+    endDate: "09/2024",
     thumbnail: "/projects/spotistats-thumbnail.gif",
     content: "/projects/spotistats-demo.gif",
-    demoLink: "https://legacy.sophli.in/spotistats",
+    demoLink: "https://legacy.sophli.in/code/spotistats",
     githubLink: "https://github.com/soph-lin/sophli-legacy/tree/main/spotistats"
   },
   {
@@ -82,6 +82,8 @@ const projects: ProjectCardProps[] = [
     endDate: "Present",
     thumbnail: "/projects/sophli-thumbnail.gif",
     content: "/projects/sophli-demo.gif",
+    demoLink: "https://www.sophli.in",
+    githubLink: "https://github.com/soph-lin/sophli-website"
   },
   {
     name: "Hot on the Market",
@@ -115,7 +117,7 @@ const projects: ProjectCardProps[] = [
   {
     name: "Code Your Dreams",
     description: "Web platform to help students learn to code",
-    tags: ["React", "TypeScript", "Next.js"],
+    tags: ["React", "TypeScript", "Next.js", "Chakra UI", "PostgreSQL"],
     startDate: "02/2025",
     endDate: "Present",
     clientLink: "https://www.codeyourdreams.org"
@@ -133,7 +135,8 @@ const projects: ProjectCardProps[] = [
     tags: ["React", "TypeScript", "Node.js", "Tailwind CSS", "SQL", "Prisma", "Clerk", "JWT", "Internship"],
     startDate: "02/2025",
     endDate: "Present",
-    thumbnail: "/projects/mymcat-thumbnail.gif"
+    thumbnail: "/projects/mymcat-thumbnail.gif",
+    demoLink: "https://www.mymcat.ai"
   },
   // {
   //   name: "Project 1",
