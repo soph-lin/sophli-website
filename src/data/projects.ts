@@ -146,7 +146,7 @@ const projects: ProjectCardProps[] = [
     startDate: "01/2025",
     endDate: "Present",
     thumbnail: "/projects/playtime-thumbnail.gif",
-    content: "/projects/playtime-demo.gif",
+    content: "/projects/playtime-demo.mp4",
     demoLink: "https://playtime.sophli.in",
     githubLink: "https://github.com/soph-lin/playtime"
   }
