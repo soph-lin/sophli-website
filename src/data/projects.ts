@@ -139,6 +139,17 @@ const projects: ProjectCardProps[] = [
     thumbnail: "/projects/mymcat-thumbnail.gif",
     demoLink: "https://www.mymcat.ai"
   },
+  {
+    name: "Playtime",
+    description: "Multiplayer music game",
+    tags: ["React", "TypeScript", "Next.js", "Tailwind CSS", "PostgreSQL", "Prisma", "Pusher (Websockets)", "SoundCloud API", "Spotify API"],
+    startDate: "01/2025",
+    endDate: "Present",
+    thumbnail: "/projects/playtime-thumbnail.gif",
+    content: "/projects/playtime-demo.gif",
+    demoLink: "https://playtime.sophli.in",
+    githubLink: "https://github.com/soph-lin/playtime"
+  }
   // {
   //   name: "Project 1",
   //   description: "Description of project 1",
