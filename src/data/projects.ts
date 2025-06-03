@@ -120,6 +120,7 @@ const projects: ProjectCardProps[] = [
     tags: ["React", "TypeScript", "Next.js", "Chakra UI", "PostgreSQL"],
     startDate: "02/2025",
     endDate: "Present",
+    demoLink: "https://cydhub.vercel.app",
     clientLink: "https://www.codeyourdreams.org"
   },
   {
