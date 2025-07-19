@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 export default {
   content: [
@@ -6,6 +7,7 @@ export default {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: ['class', '[theme="dark"]'],
   theme: {
     extend: {
       colors: {
@@ -136,5 +138,9 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addVariant }) {
+      addVariant('theme-dark', '[theme="dark"] &')
+    }),
+  ],
 } satisfies Config;

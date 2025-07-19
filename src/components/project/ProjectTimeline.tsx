@@ -219,7 +219,7 @@ export default function ProjectTimeline({
         </div>
 
         {/* Controls */}
-        <div className="flex justify-center gap-4 mt-8 text-black z-10">
+        <div className="flex justify-center gap-4 mt-8 text-black dark:text-white z-10">
           <button
             onClick={skipBackward}
             className="p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"

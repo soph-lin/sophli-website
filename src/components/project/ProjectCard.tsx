@@ -155,7 +155,7 @@ export default function ProjectCard({
           ))}
       </div>
       <div className="p-4">
-        <div className="flex flex-row gap-2 text-black">
+        <div className="flex flex-row gap-2 text-black dark:text-white">
           <h3 className="text-xl font-bold mb-2">{name}</h3>
           {demoLink && (
             <a href={demoLink} target="_blank" rel="noopener noreferrer">
