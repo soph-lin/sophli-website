@@ -61,7 +61,7 @@ const projects: ProjectCardProps[] = [
     thumbnail: "/projects/agrisphere-thumbnail.gif",
     content: "/projects/agrisphere-demo.mp4",
     demoLink: "https://www.youtube.com/watch?v=LCsdb0xEhX0",
-    githubLink: "https://github.com/soph-lin/agri-sphere"
+    githubLink: "https://github.com/NASA-Space-Apps-SP-ace/Leveraging-Earth-Observation-Data-for-Informed-Agricultural-Decision-Making"
   },
   {
     name: "Melody Lane",
