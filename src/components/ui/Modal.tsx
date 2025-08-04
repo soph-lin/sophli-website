@@ -18,10 +18,17 @@ export default function Modal({
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
-      setIsAnimating(true);
+      setShouldRender(true);
+      // Small delay to trigger animation
+      setTimeout(() => setIsAnimating(true), 10);
+    } else {
+      setIsAnimating(false);
+      // Wait for animation to finish before unmounting
+      setTimeout(() => setShouldRender(false), 300);
     }
   }, [isOpen]);
 
@@ -52,7 +59,7 @@ export default function Modal({
     }
   };
 
-  if (!isOpen && !isAnimating) return null;
+  if (!shouldRender) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -69,10 +76,8 @@ export default function Modal({
         ref={modalRef}
         className={cn(
           "relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl transition-all duration-300 ease-in-out",
-          "max-h-[90vh] overflow-hidden",
-          isOpen
-            ? "max-h-[90vh] opacity-100 scale-100"
-            : "max-h-0 opacity-0 scale-95",
+          "overflow-hidden",
+          isAnimating ? "opacity-100 max-h-[90vh]" : "opacity-0 max-h-0",
           className
         )}
         onTransitionEnd={handleAnimationEnd}
