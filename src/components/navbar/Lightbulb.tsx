@@ -1,66 +1,14 @@
 "use client";
 
-import dayjs from "dayjs";
 import { useEffect, useState, useRef } from "react";
-import { cn, random, chance } from "@/utils/misc";
+import { cn } from "@/utils/misc";
+import {
+  getCurrentHandle,
+  addDiscoveredHandle,
+  PullCordHandle,
+} from "@/utils/handles";
+import { showToast } from "@/utils/toast";
 import Stars from "../galaxy/Stars";
-
-interface PullCordHandle {
-  icon: string;
-  message: string;
-  x?: number;
-  y?: number;
-  includeOriginalHandle?: boolean;
-  pullSound?: string;
-}
-
-const pc = (
-  icon: string | string[],
-  message: string | string[],
-  opts: Partial<Omit<PullCordHandle, "icon" | "message">> = {}
-): PullCordHandle => {
-  if (!opts.x) opts.x = -10;
-  if (!opts.y) opts.y = 160;
-  if (!opts.includeOriginalHandle) opts.includeOriginalHandle = false;
-  return {
-    icon: typeof icon === "string" ? icon : random(icon),
-    message: typeof message === "string" ? message : random(message),
-    ...opts,
-  };
-};
-
-const specialHandles: Record<string, PullCordHandle> = {
-  "02/14": pc("🌹", "a rose for thee", { x: -7 }),
-  "10/31": pc("🎃", [
-    "a spooky surprise!",
-    `it's heavy! how strong is this cord??`,
-  ]),
-  "12/25": pc("🎁", "a gift for you on a special day 🎄"),
-};
-
-const miscHandles: PullCordHandle[] = [
-  pc("🕷️", "aaah! spider!", { includeOriginalHandle: true }),
-  pc("⚓", "ahoy matey!", { x: -11 }),
-  pc("🔔", "ring ring", { pullSound: "/audio/bell.mp3" }),
-  pc(["🐟", "🐠", "🦞", "🐡", "🦐", "🦀"], "what a catch!", {
-    pullSound: "/audio/splash.mp3",
-  }),
-  pc("🐒", "monkey see, monkey do", {
-    x: -5,
-    y: 152,
-    includeOriginalHandle: true,
-  }),
-  pc("🦧", "monkey see, monkey do", {
-    x: -11,
-    y: 150,
-    includeOriginalHandle: true,
-  }),
-  pc("🦍", "monkey see, monkey do", {
-    x: -12,
-    y: 150,
-    includeOriginalHandle: true,
-  }),
-];
 
 interface LightbulbProps {
   onInitialLoad?: () => void;
@@ -80,12 +28,13 @@ export default function Lightbulb({ onInitialLoad }: LightbulbProps) {
     if (initialAnimationComplete.current) return;
 
     setInitialized(true);
-    // Create handle
-    const today = dayjs().format("MM/dd");
-    if (today in specialHandles) {
-      setHandle(specialHandles[today]);
-    } else if (chance(1 / 20)) {
-      setHandle(random(miscHandles));
+    // Get current handle
+    const currentHandle = getCurrentHandle();
+    if (currentHandle) {
+      setHandle(currentHandle);
+      // Add to discovered handles and show notification
+      addDiscoveredHandle(currentHandle.id);
+      showToast.handleDiscovered(currentHandle);
     }
 
     // First drop the cord

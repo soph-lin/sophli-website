@@ -53,6 +53,10 @@ export default function Modal({
     };
   }, [isOpen, onClose]);
 
+  const handleModalClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+  };
+
   const handleAnimationEnd = () => {
     if (!isOpen) {
       setIsAnimating(false);
@@ -76,13 +80,14 @@ export default function Modal({
         ref={modalRef}
         className={cn(
           "relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl transition-all duration-300 ease-in-out",
-          "overflow-hidden",
+          "overflow-hidden max-w-[90vw]",
           isAnimating ? "opacity-100 max-h-[90vh]" : "opacity-0 max-h-0",
           className
         )}
         onTransitionEnd={handleAnimationEnd}
+        onClick={handleModalClick}
       >
-        <div className="p-6">{children}</div>
+        <div className="p-6 max-h-[80vh] overflow-y-auto">{children}</div>
       </div>
     </div>
   );
