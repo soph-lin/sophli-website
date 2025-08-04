@@ -123,6 +123,7 @@ export default function ProjectCard({
             )}
             sizes="100%"
             onLoad={(e) => handleMediaLoad(e.currentTarget)}
+            draggable={false}
           />
         )}
         {/* Content */}
