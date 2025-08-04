@@ -2,6 +2,7 @@ import "./globals.css";
 import { IBM_Plex_Mono } from "next/font/google";
 import { cn } from "@/utils/misc";
 import { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Sophie Lin",
@@ -47,6 +48,17 @@ export default function RootLayout({
       </head>
       <body className="antialiased font-mono overflow-x-hidden">
         <div className="min-h-screen relative">{children}</div>
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: "var(--background)",
+              color: "var(--foreground)",
+              border: "1px solid var(--border)",
+            },
+          }}
+        />
       </body>
     </html>
   );
