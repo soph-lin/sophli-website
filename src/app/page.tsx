@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/navbar/Navbar";
 import FloatText from "@/components/ui/FloatText";
+import TypedText from "@/components/ui/TypedText";
 import { cn } from "@/utils/misc";
 import ProjectTimeline from "@/components/project/ProjectTimeline";
 import ProjectGrid from "@/components/project/ProjectGrid";
 import AnimatedRays from "@/components/galaxy/AnimatedRays";
+import { SquaresFour, List, CaretDown } from "phosphor-react";
 import projects from "@/data/projects";
 
 export default function Home() {
@@ -14,6 +16,23 @@ export default function Home() {
   const [showProjects, setShowProjects] = useState(false);
   const [startFloatText, setStartFloatText] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "timeline">("grid");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleInitialLoad = () => {
     // Show main content container
@@ -60,20 +79,87 @@ export default function Home() {
                 showProjects ? "opacity-100" : "opacity-0"
               )}
             >
+              {/* Projects Header */}
+              <div className="max-w-7xl mx-auto px-4">
+                <TypedText
+                  text="projects"
+                  className="text-2xl font-bold mb-8 text-center"
+                  onComplete={() => {}}
+                  skip={!showProjects}
+                />
+              </div>
+
+              {/* View Toggle Dropdown */}
+              <div className="flex justify-center mb-8">
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  >
+                    <span className="text-gray-700 dark:text-gray-300">
+                      {viewMode === "grid" ? (
+                        <>
+                          <SquaresFour size={20} className="inline mr-2" />
+                          Grid View
+                        </>
+                      ) : (
+                        <>
+                          <List size={20} className="inline mr-2" />
+                          Timeline View
+                        </>
+                      )}
+                    </span>
+                    <CaretDown
+                      size={16}
+                      className={cn(
+                        "transition-transform duration-200",
+                        isDropdownOpen ? "rotate-180" : ""
+                      )}
+                    />
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {isDropdownOpen && (
+                    <div className="absolute top-full left-0 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg z-50 overflow-hidden">
+                      {viewMode === "timeline" && (
+                        <button
+                          onClick={() => {
+                            setViewMode("grid");
+                            setIsDropdownOpen(false);
+                          }}
+                          className="w-full px-4 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2 text-gray-700 dark:text-gray-300"
+                        >
+                          <SquaresFour size={20} />
+                          Grid View
+                        </button>
+                      )}
+                      {viewMode === "grid" && (
+                        <button
+                          onClick={() => {
+                            setViewMode("timeline");
+                            setIsDropdownOpen(false);
+                          }}
+                          className="w-full px-4 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2 text-gray-700 dark:text-gray-300"
+                        >
+                          <List size={20} />
+                          Timeline View
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+
               {/* Projects Component */}
               {viewMode === "grid" ? (
                 <ProjectGrid
                   projects={projects}
                   startAnimation={showProjects}
-                  viewMode={viewMode}
-                  onViewModeChange={setViewMode}
                 />
               ) : (
                 <ProjectTimeline
                   projects={projects}
                   startAnimation={showProjects}
-                  viewMode={viewMode}
-                  onViewModeChange={setViewMode}
                 />
               )}
             </div>

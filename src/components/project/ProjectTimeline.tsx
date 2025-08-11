@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import ProjectCard from "./ProjectCard";
-import TypedText from "../ui/TypedText";
 import { cn } from "@/utils/misc";
 import { ProjectCardProps } from "./ProjectCard";
 import {
@@ -10,9 +9,6 @@ import {
   Play,
   Rewind,
   FastForward,
-  List,
-  SquaresFour,
-  CaretDown,
 } from "phosphor-react";
 
 const dateToNumber = (dateStr: string): number => {
@@ -27,23 +23,17 @@ const dateToNumber = (dateStr: string): number => {
 interface ProjectTimelineProps {
   projects: ProjectCardProps[];
   startAnimation: boolean;
-  viewMode: "grid" | "timeline";
-  onViewModeChange: (mode: "grid" | "timeline") => void;
 }
 
 export default function ProjectTimeline({
   projects: unsortedProjects,
   startAnimation,
-  viewMode,
-  onViewModeChange,
 }: ProjectTimelineProps) {
   // Sort projects by start date (mm/yyyy)
   const projects = [...unsortedProjects].sort(
     (a, b) => dateToNumber(b.startDate) - dateToNumber(a.startDate)
   );
 
-  const [hasTyped, setHasTyped] = useState(false);
-  const [isTypingComplete, setIsTypingComplete] = useState(false);
   const [isTimelineVisible, setIsTimelineVisible] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const lastTimeRef = useRef(0);
@@ -82,18 +72,10 @@ export default function ProjectTimeline({
 
   useEffect(() => {
     if (startAnimation && !hasStartedRef.current) {
-      setHasTyped(false);
-      setIsTypingComplete(false);
+      setIsTimelineVisible(true);
       hasStartedRef.current = true;
     }
   }, [startAnimation]);
-
-  useEffect(() => {
-    if (isTypingComplete && !hasTyped) {
-      setIsTimelineVisible(true);
-      setHasTyped(true);
-    }
-  }, [isTypingComplete, hasTyped]);
 
   // Initialize positions with proper spacing
   useEffect(() => {
@@ -183,45 +165,6 @@ export default function ProjectTimeline({
 
   return (
     <div className="w-full h-full">
-      {/* Title */}
-      <div className="max-w-7xl mx-auto px-4">
-        <TypedText
-          text="projects"
-          className="text-2xl font-bold mb-8 text-center"
-          onComplete={() => setIsTypingComplete(true)}
-          skip={!startAnimation}
-        />
-
-        {/* View Toggle Dropdown */}
-        <div className="flex justify-center mb-8">
-          <div className="relative">
-            <button
-              onClick={() =>
-                onViewModeChange(viewMode === "grid" ? "timeline" : "grid")
-              }
-              className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-            >
-              <span className="text-gray-700 dark:text-gray-300">
-                {viewMode === "grid" ? (
-                  <>
-                    <SquaresFour size={20} className="inline mr-2" />
-                    Grid View
-                  </>
-                ) : (
-                  <>
-                    <List size={20} className="inline mr-2" />
-                    Timeline View
-                  </>
-                )}
-              </span>
-              <CaretDown
-                size={16}
-                className="transition-transform duration-200"
-              />
-            </button>
-          </div>
-        </div>
-      </div>
 
       {/* Timeline */}
       <div
