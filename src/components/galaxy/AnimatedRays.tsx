@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 interface AnimatedRaysProps {
   className?: string;
 }
 
-const AnimatedRays = ({ className = "" }: AnimatedRaysProps) => {
+const AnimatedRays = ({ className = '' }: AnimatedRaysProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     const resizeCanvas = () => {
@@ -22,15 +22,15 @@ const AnimatedRays = ({ className = "" }: AnimatedRaysProps) => {
       canvas.height = rect.height;
     };
     resizeCanvas();
-    
+
     // Use ResizeObserver for more reliable resizing
     const resizeObserver = new ResizeObserver(() => {
       resizeCanvas();
     });
     resizeObserver.observe(canvas);
-    
+
     // Also listen to window resize as fallback
-    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener('resize', resizeCanvas);
 
     const numberOfRays = 5;
     const rayLength = 30;
@@ -105,7 +105,7 @@ const AnimatedRays = ({ className = "" }: AnimatedRaysProps) => {
 
         ctx.strokeStyle = gradient;
         ctx.lineWidth = 3;
-        ctx.lineCap = "round";
+        ctx.lineCap = 'round';
         ctx.stroke();
       }
 
@@ -115,7 +115,7 @@ const AnimatedRays = ({ className = "" }: AnimatedRaysProps) => {
     animationFrameId = requestAnimationFrame(drawRays);
 
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener('resize', resizeCanvas);
       resizeObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
     };

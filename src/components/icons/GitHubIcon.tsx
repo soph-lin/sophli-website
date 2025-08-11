@@ -1,8 +1,8 @@
-import { IconProps } from "./types";
+import { IconProps } from './types';
 
 export default function GithubIcon({
   size = 20,
-  color = "currentColor",
+  color = 'currentColor',
   className,
 }: IconProps) {
   return (

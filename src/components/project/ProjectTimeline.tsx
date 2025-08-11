@@ -1,22 +1,17 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import ProjectCard from "./ProjectCard";
-import { cn } from "@/utils/misc";
-import { ProjectCardProps } from "./ProjectCard";
-import {
-  Pause,
-  Play,
-  Rewind,
-  FastForward,
-} from "phosphor-react";
+import { useEffect, useRef, useState } from 'react';
+import ProjectCard from './ProjectCard';
+import { cn } from '@/utils/misc';
+import { ProjectCardProps } from './ProjectCard';
+import { Pause, Play, Rewind, FastForward } from 'phosphor-react';
 
 const dateToNumber = (dateStr: string): number => {
-  if (dateStr.toLowerCase() === "present") {
+  if (dateStr.toLowerCase() === 'present') {
     return Infinity;
   }
 
-  const [month, year] = dateStr.split("/");
+  const [month, year] = dateStr.split('/');
   return parseInt(year) * 12 + parseInt(month);
 };
 
@@ -66,8 +61,8 @@ export default function ProjectTimeline({
       });
     };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [cardWidth]);
 
   useEffect(() => {
@@ -134,8 +129,8 @@ export default function ProjectTimeline({
   }, [isTimelineVisible, isPaused, viewportEdges.rightEdge, spacing, speed]);
 
   const skipForward = () => {
-    setPositions((prevPositions) => {
-      return prevPositions.map((position) => {
+    setPositions(prevPositions => {
+      return prevPositions.map(position => {
         const newPosition = position + skipLength;
 
         // When a card moves past the right edge, reposition it to the left
@@ -149,8 +144,8 @@ export default function ProjectTimeline({
   };
 
   const skipBackward = () => {
-    setPositions((prevPositions) => {
-      return prevPositions.map((position) => {
+    setPositions(prevPositions => {
+      return prevPositions.map(position => {
         const newPosition = position - skipLength;
 
         // When a card moves past the left edge, reposition it to the right
@@ -165,12 +160,11 @@ export default function ProjectTimeline({
 
   return (
     <div className="w-full h-full">
-
       {/* Timeline */}
       <div
         className={cn(
-          "relative mt-16 mb-32 transition-opacity duration-1000",
-          isTimelineVisible ? "opacity-100" : "opacity-0"
+          'relative mt-16 mb-32 transition-opacity duration-1000',
+          isTimelineVisible ? 'opacity-100' : 'opacity-0'
         )}
       >
         <div
@@ -190,7 +184,7 @@ export default function ProjectTimeline({
                       transform: `translate3d(${positions[index]}px, -50%, 0)`,
                       width: `${cardWidth}px`,
                       opacity: 1,
-                      transition: "opacity 0.05s ease-out",
+                      transition: 'opacity 0.05s ease-out',
                     }}
                   >
                     <div className="pr-8">
@@ -215,7 +209,7 @@ export default function ProjectTimeline({
           <button
             onClick={() => setIsPaused(!isPaused)}
             className="p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-            aria-label={isPaused ? "Play animation" : "Pause animation"}
+            aria-label={isPaused ? 'Play animation' : 'Pause animation'}
           >
             {isPaused ? (
               <Play size={28} weight="regular" />

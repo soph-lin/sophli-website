@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from 'react';
 
 interface TypedTextProps {
   text: string;
@@ -13,11 +13,11 @@ interface TypedTextProps {
 export default function TypedText({
   text,
   speed = 50,
-  className = "",
+  className = '',
   onComplete,
   skip = false,
 }: TypedTextProps) {
-  const [displayedText, setDisplayedText] = useState(skip ? text : "");
+  const [displayedText, setDisplayedText] = useState(skip ? text : '');
   const hasCompletedRef = useRef(false);
 
   useEffect(() => {

@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useEffect, useState, useRef } from "react";
-import { cn } from "@/utils/misc";
+import { useEffect, useState, useRef } from 'react';
+import { cn } from '@/utils/misc';
 import {
   getCurrentHandle,
   addDiscoveredHandle,
   PullCordHandle,
-} from "@/utils/handles";
-import { showToast } from "@/utils/toast";
-import Stars from "../galaxy/Stars";
+} from '@/utils/handles';
+import { showToast } from '@/utils/toast';
+import Stars from '../galaxy/Stars';
 
 interface LightbulbProps {
   onInitialLoad?: () => void;
@@ -84,17 +84,17 @@ export default function Lightbulb({ onInitialLoad }: LightbulbProps) {
   // Toggle light on
   useEffect(() => {
     if (!initialized) return;
-    document.documentElement.setAttribute("theme", on ? "light" : "dark");
+    document.documentElement.setAttribute('theme', on ? 'light' : 'dark');
 
     // Update favicon
-    const favicon = document.getElementById("favicon") as HTMLLinkElement;
+    const favicon = document.getElementById('favicon') as HTMLLinkElement;
     if (favicon) {
-      favicon.href = on ? "/favicon/star-white.png" : "/favicon/star-black.png";
+      favicon.href = on ? '/favicon/star-white.png' : '/favicon/star-black.png';
     }
 
     if (!initialAnimationComplete.current) return;
     new Audio(
-      handle?.pullSound || `/audio/light${on ? "on" : "off"}.wav`
+      handle?.pullSound || `/audio/light${on ? 'on' : 'off'}.wav`
     ).play();
   }, [on]);
 
@@ -107,11 +107,11 @@ export default function Lightbulb({ onInitialLoad }: LightbulbProps) {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className={cn(
-            "absolute top-[-100px] right-7 transform stroke-current fill-current stroke-2 overflow-visible text-[100px] cursor-pointer",
-            animateDrop && "animate-cord-drop",
-            animatePull && "animate-cord-pull",
-            !dropped && "-translate-y-full",
-            dropped && "translate-y-0"
+            'absolute top-[-100px] right-7 transform stroke-current fill-current stroke-2 overflow-visible text-[100px] cursor-pointer',
+            animateDrop && 'animate-cord-drop',
+            animatePull && 'animate-cord-pull',
+            !dropped && '-translate-y-full',
+            dropped && 'translate-y-0'
           )}
           width="50"
           height="300"

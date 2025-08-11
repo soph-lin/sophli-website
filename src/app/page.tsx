@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef } from "react";
-import Navbar from "@/components/navbar/Navbar";
-import FloatText from "@/components/ui/FloatText";
-import TypedText from "@/components/ui/TypedText";
-import { cn } from "@/utils/misc";
-import ProjectTimeline from "@/components/project/ProjectTimeline";
-import ProjectGrid from "@/components/project/ProjectGrid";
-import AnimatedRays from "@/components/galaxy/AnimatedRays";
-import { SquaresFour, List, CaretDown } from "phosphor-react";
-import projects from "@/data/projects";
+import { useState, useEffect, useRef } from 'react';
+import Navbar from '@/components/navbar/Navbar';
+import FloatText from '@/components/ui/FloatText';
+import TypedText from '@/components/ui/TypedText';
+import { cn } from '@/utils/misc';
+import ProjectTimeline from '@/components/project/ProjectTimeline';
+import ProjectGrid from '@/components/project/ProjectGrid';
+import AnimatedRays from '@/components/galaxy/AnimatedRays';
+import { SquaresFour, List, CaretDown } from 'phosphor-react';
+import projects from '@/data/projects';
 
 export default function Home() {
   const [showContent, setShowContent] = useState(false);
   const [showProjects, setShowProjects] = useState(false);
   const [startFloatText, setStartFloatText] = useState(false);
-  const [viewMode, setViewMode] = useState<"grid" | "timeline">("grid");
+  const [viewMode, setViewMode] = useState<'grid' | 'timeline'>('grid');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -30,8 +30,8 @@ export default function Home() {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const handleInitialLoad = () => {
@@ -59,8 +59,8 @@ export default function Home() {
         <div className="flex-1 flex items-center justify-center">
           <main
             className={cn(
-              "transition-opacity duration-500 px-5",
-              showContent ? "opacity-100" : "opacity-0"
+              'transition-opacity duration-500 px-5',
+              showContent ? 'opacity-100' : 'opacity-0'
             )}
           >
             <div className="w-full h-[calc(100vh-20px)] flex items-center justify-center relative">
@@ -75,8 +75,8 @@ export default function Home() {
             </div>
             <div
               className={cn(
-                "w-full transition-opacity duration-500 mb-32",
-                showProjects ? "opacity-100" : "opacity-0"
+                'w-full transition-opacity duration-500 mb-32',
+                showProjects ? 'opacity-100' : 'opacity-0'
               )}
             >
               {/* Projects Header */}
@@ -97,7 +97,7 @@ export default function Home() {
                     className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                   >
                     <span className="text-gray-700 dark:text-gray-300">
-                      {viewMode === "grid" ? (
+                      {viewMode === 'grid' ? (
                         <>
                           <SquaresFour size={20} className="inline mr-2" />
                           Grid View
@@ -112,8 +112,8 @@ export default function Home() {
                     <CaretDown
                       size={16}
                       className={cn(
-                        "transition-transform duration-200",
-                        isDropdownOpen ? "rotate-180" : ""
+                        'transition-transform duration-200',
+                        isDropdownOpen ? 'rotate-180' : ''
                       )}
                     />
                   </button>
@@ -121,10 +121,10 @@ export default function Home() {
                   {/* Dropdown Menu */}
                   {isDropdownOpen && (
                     <div className="absolute top-full left-0 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg z-50 overflow-hidden">
-                      {viewMode === "timeline" && (
+                      {viewMode === 'timeline' && (
                         <button
                           onClick={() => {
-                            setViewMode("grid");
+                            setViewMode('grid');
                             setIsDropdownOpen(false);
                           }}
                           className="w-full px-4 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2 text-gray-700 dark:text-gray-300"
@@ -133,10 +133,10 @@ export default function Home() {
                           Grid View
                         </button>
                       )}
-                      {viewMode === "grid" && (
+                      {viewMode === 'grid' && (
                         <button
                           onClick={() => {
-                            setViewMode("timeline");
+                            setViewMode('timeline');
                             setIsDropdownOpen(false);
                           }}
                           className="w-full px-4 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2 text-gray-700 dark:text-gray-300"
@@ -151,7 +151,7 @@ export default function Home() {
               </div>
 
               {/* Projects Component */}
-              {viewMode === "grid" ? (
+              {viewMode === 'grid' ? (
                 <ProjectGrid
                   projects={projects}
                   startAnimation={showProjects}

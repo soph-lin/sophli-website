@@ -3,7 +3,7 @@ Opening animation for the galaxy page, where a star swirls around and upon reach
 Deprecated and doesn't work too well.
 */
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from 'react';
 
 export default function OpeningAnimation({
   onComplete,
@@ -11,8 +11,8 @@ export default function OpeningAnimation({
   onComplete: () => void;
 }) {
   const [stage, setStage] = useState<
-    "initial" | "spiral" | "pulse" | "explode" | "complete"
-  >("initial");
+    'initial' | 'spiral' | 'pulse' | 'explode' | 'complete'
+  >('initial');
 
   const position = useRef({
     x: 0,
@@ -113,20 +113,20 @@ export default function OpeningAnimation({
     };
 
     const timeline = async () => {
-      await new Promise((r) => setTimeout(r, 500));
-      setStage("spiral");
+      await new Promise(r => setTimeout(r, 500));
+      setStage('spiral');
       animationRef.current = requestAnimationFrame(animate);
-      await new Promise((r) => setTimeout(r, duration));
+      await new Promise(r => setTimeout(r, duration));
 
       const pulseDuration = 500;
       const numPulses = 5;
-      setStage("pulse");
-      await new Promise((r) => setTimeout(r, pulseDuration * numPulses));
+      setStage('pulse');
+      await new Promise(r => setTimeout(r, pulseDuration * numPulses));
 
-      setStage("explode");
-      await new Promise((r) => setTimeout(r, 1500));
-      setStage("complete");
-      await new Promise((r) => setTimeout(r, 500));
+      setStage('explode');
+      await new Promise(r => setTimeout(r, 1500));
+      setStage('complete');
+      await new Promise(r => setTimeout(r, 500));
       onComplete();
     };
 
@@ -140,7 +140,7 @@ export default function OpeningAnimation({
   }, [onComplete]);
 
   useEffect(() => {
-    if (stage === "pulse") {
+    if (stage === 'pulse') {
       const pulseDuration = 1000;
       const numPulses = 3;
       const baseScale = position.current.scale;
@@ -173,7 +173,7 @@ export default function OpeningAnimation({
           forceRender({});
           pulseAnimationRef.current = requestAnimationFrame(animatePulse);
         } else {
-          setStage("explode");
+          setStage('explode');
         }
       };
 
@@ -189,30 +189,30 @@ export default function OpeningAnimation({
   return (
     <div
       className={`fixed inset-0 z-50 bg-black transition-opacity duration-500 ${
-        stage === "complete" ? "opacity-0" : "opacity-100"
+        stage === 'complete' ? 'opacity-0' : 'opacity-100'
       }`}
     >
       {/* Main star */}
       <div className="absolute inset-0 overflow-hidden">
-        <svg className="w-full h-full" style={{ pointerEvents: "none" }}>
+        <svg className="w-full h-full" style={{ pointerEvents: 'none' }}>
           <g
             className={`
               text-white fill-current
-              ${stage === "initial" ? "-translate-y-full" : ""}
-              ${stage === "explode" ? "animate-star-explode" : ""}
-              ${stage === "complete" ? "opacity-0" : ""}
+              ${stage === 'initial' ? '-translate-y-full' : ''}
+              ${stage === 'explode' ? 'animate-star-explode' : ''}
+              ${stage === 'complete' ? 'opacity-0' : ''}
               transition-opacity duration-500
             `}
             style={{
               transform:
-                stage !== "complete"
+                stage !== 'complete'
                   ? `translate(calc(${position.current.x}% - 12px), calc(${position.current.y}% - 12px)) scale(${position.current.scale}) rotate(${position.current.rotation}deg)`
                   : undefined,
               filter:
-                stage === "pulse"
-                  ? "drop-shadow(0 0 10px rgba(255,255,255,0.8))"
+                stage === 'pulse'
+                  ? 'drop-shadow(0 0 10px rgba(255,255,255,0.8))'
                   : undefined,
-              willChange: "transform",
+              willChange: 'transform',
             }}
           >
             <path
@@ -224,7 +224,7 @@ export default function OpeningAnimation({
       </div>
 
       {/* Explosion particles */}
-      {stage === "explode" && (
+      {stage === 'explode' && (
         <div className="absolute inset-0">
           {[...Array(20)].map((_, i) => {
             const angle = Math.random() * 360;
@@ -238,20 +238,20 @@ export default function OpeningAnimation({
                 className="absolute w-4 h-4 text-white fill-current animate-particle"
                 style={
                   {
-                    left: "50%",
-                    top: "50%",
-                    "--particle-angle": `${angle}deg`,
-                    "--particle-distance-3": `${distance}vh`,
-                    "--particle-drift-x3": `${drift}px`,
+                    left: '50%',
+                    top: '50%',
+                    '--particle-angle': `${angle}deg`,
+                    '--particle-distance-3': `${distance}vh`,
+                    '--particle-drift-x3': `${drift}px`,
                     animationTimingFunction: `cubic-bezier(${
                       0.2 + Math.random() * 0.2
                     }, ${0.7 + Math.random() * 0.2}, ${
                       0.6 + Math.random() * 0.2
                     }, ${0.8 + Math.random() * 0.2})`,
                   } as React.CSSProperties & {
-                    "--particle-angle": string;
-                    "--particle-distance-3": string;
-                    "--particle-drift-x3": string;
+                    '--particle-angle': string;
+                    '--particle-distance-3': string;
+                    '--particle-drift-x3': string;
                   }
                 }
                 viewBox="0 0 24 24"

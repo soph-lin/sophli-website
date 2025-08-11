@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
-import { RocketLaunch } from "phosphor-react";
-import GitHubIcon from "../icons/GitHubIcon";
-import HandHeartIcon from "../icons/HandHeartIcon";
-import Tooltip from "../ui/Tooltip";
-import { cn } from "@/utils/misc";
-import { formatDate } from "@/utils/date";
-import { projectCovers } from "@/data/projectCovers";
+import Image from 'next/image';
+import { useState, useRef, useEffect } from 'react';
+import { RocketLaunch } from 'phosphor-react';
+import GitHubIcon from '../icons/GitHubIcon';
+import HandHeartIcon from '../icons/HandHeartIcon';
+import Tooltip from '../ui/Tooltip';
+import { cn } from '@/utils/misc';
+import { formatDate } from '@/utils/date';
+import { projectCovers } from '@/data/projectCovers';
 
 export interface ProjectCardProps {
   name: string;
@@ -64,8 +64,8 @@ export default function ProjectCard({
 
   // Use default cover if no thumbnail and content provided
   const effectiveThumbnail = thumbnail || `/project-covers/${defaultCover}`;
-  const isThumbnailVideo = effectiveThumbnail.toLowerCase().endsWith(".mp4");
-  const isContentVideo = content?.toLowerCase().endsWith(".mp4");
+  const isThumbnailVideo = effectiveThumbnail.toLowerCase().endsWith('.mp4');
+  const isContentVideo = content?.toLowerCase().endsWith('.mp4');
   const contentUrl = content || effectiveThumbnail;
 
   // Handle loading media and set correct aspect ratio
@@ -86,8 +86,8 @@ export default function ProjectCard({
       <div
         className="relative w-full"
         style={{
-          aspectRatio: thumbnail ? aspectRatio : "auto",
-          minHeight: !thumbnail ? "200px" : "auto",
+          aspectRatio: thumbnail ? aspectRatio : 'auto',
+          minHeight: !thumbnail ? '200px' : 'auto',
         }}
       >
         {/* Thumbnail */}
@@ -95,13 +95,13 @@ export default function ProjectCard({
           <video
             src={effectiveThumbnail}
             className={`object-cover transition-opacity duration-300 ${
-              isHovered && content ? "opacity-0" : "opacity-100"
+              isHovered && content ? 'opacity-0' : 'opacity-100'
             }`}
             ref={thumbnailVideoRef}
             muted
             loop
             playsInline
-            onLoadedMetadata={(e) => handleMediaLoad(e.currentTarget)}
+            onLoadedMetadata={e => handleMediaLoad(e.currentTarget)}
           />
         ) : (
           <Image
@@ -109,11 +109,11 @@ export default function ProjectCard({
             alt={`${name} thumbnail`}
             fill
             className={cn(
-              "object-contain transition-opacity duration-300",
-              isHovered && content ? "opacity-0" : "opacity-100"
+              'object-contain transition-opacity duration-300',
+              isHovered && content ? 'opacity-0' : 'opacity-100'
             )}
             sizes="100%"
-            onLoad={(e) => handleMediaLoad(e.currentTarget)}
+            onLoad={e => handleMediaLoad(e.currentTarget)}
             draggable={false}
           />
         )}
@@ -123,13 +123,13 @@ export default function ProjectCard({
             <video
               src={contentUrl}
               className={`absolute inset-0 object-contain transition-opacity duration-300 ${
-                isHovered ? "opacity-100" : "opacity-0"
+                isHovered ? 'opacity-100' : 'opacity-0'
               }`}
               ref={contentVideoRef}
               muted
               loop
               playsInline
-              onLoadedMetadata={(e) => handleMediaLoad(e.currentTarget)}
+              onLoadedMetadata={e => handleMediaLoad(e.currentTarget)}
             />
           ) : (
             <Image
@@ -137,12 +137,12 @@ export default function ProjectCard({
               alt={`${name} content`}
               fill
               className={`object-contain transition-opacity duration-300 ${
-                isHovered ? "opacity-100" : "opacity-0"
+                isHovered ? 'opacity-100' : 'opacity-0'
               }`}
               style={{ opacity: isHovered ? 1 : 0 }}
               priority={true}
               sizes="100%"
-              onLoad={(e) => handleMediaLoad(e.currentTarget)}
+              onLoad={e => handleMediaLoad(e.currentTarget)}
             />
           ))}
       </div>
@@ -179,7 +179,7 @@ export default function ProjectCard({
           {description}
         </p>
         <div className="flex flex-wrap gap-2 mb-3">
-          {tags.map((tag) => (
+          {tags.map(tag => (
             <span
               key={tag}
               className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 text-xs rounded-full"

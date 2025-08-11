@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import Lightbulb from "./Lightbulb";
-import Vault from "../ui/Vault";
-import { showToast } from "@/utils/toast";
+import { useEffect, useState } from 'react';
+import Lightbulb from './Lightbulb';
+import Vault from '../ui/Vault';
+import { showToast } from '@/utils/toast';
 
 interface NavbarProps {
   onInitialLoad?: () => void;
@@ -14,16 +14,16 @@ export default function Navbar({ onInitialLoad }: NavbarProps) {
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      if (event.key.toLowerCase() === "v") {
-        setIsVaultOpen((prev) => !prev);
+      if (event.key.toLowerCase() === 'v') {
+        setIsVaultOpen(prev => !prev);
         if (!isVaultOpen) {
           showToast.vaultOpened();
         }
       }
     };
 
-    document.addEventListener("keydown", handleKeyPress);
-    return () => document.removeEventListener("keydown", handleKeyPress);
+    document.addEventListener('keydown', handleKeyPress);
+    return () => document.removeEventListener('keydown', handleKeyPress);
   }, [isVaultOpen]);
 
   return (

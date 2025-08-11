@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { random } from "@/utils/misc";
+import { useEffect, useState } from 'react';
+import { random } from '@/utils/misc';
 
 interface Star {
   id: number;
@@ -29,7 +29,7 @@ export default function Stars() {
 
   return (
     <div className="fixed inset-0 pointer-events-none transition-opacity duration-500">
-      {stars.map((star) => (
+      {stars.map(star => (
         <div
           key={star.id}
           className="absolute rounded-full bg-white opacity-0 animate-star-appear animate-star-pulse"

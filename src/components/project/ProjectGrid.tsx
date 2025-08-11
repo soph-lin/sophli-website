@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState, useMemo } from "react";
-import ProjectCard from "./ProjectCard";
-import { cn } from "@/utils/misc";
-import { ProjectCardProps } from "./ProjectCard";
-import { MagnifyingGlass, X, Funnel } from "phosphor-react";
+import { useState, useMemo } from 'react';
+import ProjectCard from './ProjectCard';
+import { cn } from '@/utils/misc';
+import { ProjectCardProps } from './ProjectCard';
+import { MagnifyingGlass, X, Funnel } from 'phosphor-react';
 
 interface ProjectGridProps {
   projects: ProjectCardProps[];
@@ -18,16 +18,16 @@ export default function ProjectGrid({
   // Sort projects by most recent first (ongoing projects first, then by start date)
   const projects = [...unsortedProjects].sort((a, b) => {
     const dateToNumber = (dateStr: string): number => {
-      if (dateStr.toLowerCase() === "present") {
+      if (dateStr.toLowerCase() === 'present') {
         return Infinity;
       }
-      const [month, year] = dateStr.split("/");
+      const [month, year] = dateStr.split('/');
       return parseInt(year) * 12 + parseInt(month);
     };
 
     // First, sort by whether the project is ongoing (endDate === "Present")
-    const aIsOngoing = a.endDate?.toLowerCase() === "present";
-    const bIsOngoing = b.endDate?.toLowerCase() === "present";
+    const aIsOngoing = a.endDate?.toLowerCase() === 'present';
+    const bIsOngoing = b.endDate?.toLowerCase() === 'present';
 
     if (aIsOngoing && !bIsOngoing) return -1; // a is ongoing, b is not
     if (!aIsOngoing && bIsOngoing) return 1; // b is ongoing, a is not
@@ -36,7 +36,7 @@ export default function ProjectGrid({
     return dateToNumber(b.startDate) - dateToNumber(a.startDate);
   });
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [hasTyped, setHasTyped] = useState(false);
   const [isGridVisible, setIsGridVisible] = useState(false);
@@ -44,23 +44,23 @@ export default function ProjectGrid({
   // Get all unique tags from projects
   const allTags = useMemo(() => {
     const tags = new Set<string>();
-    projects.forEach((project) => {
-      project.tags.forEach((tag) => tags.add(tag));
+    projects.forEach(project => {
+      project.tags.forEach(tag => tags.add(tag));
     });
     return Array.from(tags).sort();
   }, [projects]);
 
   // Filter projects based on search query and selected tags
   const filteredProjects = useMemo(() => {
-    return projects.filter((project) => {
+    return projects.filter(project => {
       const matchesSearch =
-        searchQuery === "" ||
+        searchQuery === '' ||
         project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         project.description.toLowerCase().includes(searchQuery.toLowerCase());
 
       const matchesTags =
         selectedTags.length === 0 ||
-        selectedTags.some((tag) => project.tags.includes(tag));
+        selectedTags.some(tag => project.tags.includes(tag));
 
       return matchesSearch && matchesTags;
     });
@@ -68,14 +68,14 @@ export default function ProjectGrid({
 
   // Handle tag selection/deselection
   const toggleTag = (tag: string) => {
-    setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    setSelectedTags(prev =>
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
     );
   };
 
   // Clear all filters
   const clearFilters = () => {
-    setSearchQuery("");
+    setSearchQuery('');
     setSelectedTags([]);
   };
 
@@ -93,8 +93,8 @@ export default function ProjectGrid({
       {/* Search and Filters */}
       <div
         className={cn(
-          "max-w-7xl mx-auto px-4 mb-8 transition-opacity duration-1000",
-          isGridVisible ? "opacity-100" : "opacity-0"
+          'max-w-7xl mx-auto px-4 mb-8 transition-opacity duration-1000',
+          isGridVisible ? 'opacity-100' : 'opacity-0'
         )}
       >
         {/* Search Bar */}
@@ -107,12 +107,12 @@ export default function ProjectGrid({
             type="text"
             placeholder="Search projects..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={e => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
           />
           {searchQuery && (
             <button
-              onClick={() => setSearchQuery("")}
+              onClick={() => setSearchQuery('')}
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
             >
               <X size={16} />
@@ -137,15 +137,15 @@ export default function ProjectGrid({
             )}
           </div>
           <div className="flex flex-wrap gap-2">
-            {allTags.map((tag) => (
+            {allTags.map(tag => (
               <button
                 key={tag}
                 onClick={() => toggleTag(tag)}
                 className={cn(
-                  "px-3 py-1.5 text-sm rounded-full border transition-all duration-200",
+                  'px-3 py-1.5 text-sm rounded-full border transition-all duration-200',
                   selectedTags.includes(tag)
-                    ? "bg-blue-500 text-white border-blue-500 hover:bg-blue-600"
-                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    ? 'bg-blue-500 text-white border-blue-500 hover:bg-blue-600'
+                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
                 )}
               >
                 #{tag}
@@ -163,8 +163,8 @@ export default function ProjectGrid({
       {/* Projects Grid */}
       <div
         className={cn(
-          "max-w-7xl mx-auto px-4 mb-32 transition-opacity duration-1000",
-          isGridVisible ? "opacity-100" : "opacity-0"
+          'max-w-7xl mx-auto px-4 mb-32 transition-opacity duration-1000',
+          isGridVisible ? 'opacity-100' : 'opacity-0'
         )}
       >
         {filteredProjects.length > 0 ? (
@@ -175,7 +175,7 @@ export default function ProjectGrid({
                 className="animate-fade-in w-full max-w-sm"
                 style={{
                   animationDelay: `${index * 100}ms`,
-                  animationFillMode: "both",
+                  animationFillMode: 'both',
                 }}
               >
                 <ProjectCard {...project} />

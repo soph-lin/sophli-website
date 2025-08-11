@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { cn } from "@/utils/misc";
+import { useEffect, useRef, useState } from 'react';
+import { cn } from '@/utils/misc';
 
 interface ModalProps {
   isOpen: boolean;
@@ -42,9 +42,11 @@ export default function Modal({
       ) {
         // Check if the click is on the backdrop of this specific modal
         const target = event.target as Node;
-        const backdrop = modalRef.current.querySelector('div[class*="bg-black/50"]');
+        const backdrop = modalRef.current.querySelector(
+          'div[class*="bg-black/50"]'
+        );
         const isClickingOnBackdrop = backdrop && backdrop.contains(target);
-        
+
         // Only close if clicking on this modal's backdrop
         if (isClickingOnBackdrop) {
           onClose();
@@ -53,15 +55,15 @@ export default function Modal({
     };
 
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-      document.body.style.overflow = "hidden";
-      document.documentElement.style.overflow = "hidden";
+      document.addEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.body.style.overflow = "unset";
-      document.documentElement.style.overflow = "unset";
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'unset';
+      document.documentElement.style.overflow = 'unset';
     };
   }, [isOpen, onClose]);
 
@@ -78,7 +80,7 @@ export default function Modal({
   if (!shouldRender) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 flex items-center justify-center overflow-hidden"
       style={{ zIndex }}
       data-modal="true"
@@ -86,8 +88,8 @@ export default function Modal({
       {/* Backdrop */}
       <div
         className={cn(
-          "absolute inset-0 bg-black/50 transition-opacity duration-300",
-          isOpen ? "opacity-100" : "opacity-0"
+          'absolute inset-0 bg-black/50 transition-opacity duration-300',
+          isOpen ? 'opacity-100' : 'opacity-0'
         )}
       />
 
@@ -95,9 +97,9 @@ export default function Modal({
       <div
         ref={modalRef}
         className={cn(
-          "relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl transition-all duration-300 ease-in-out",
-          "overflow-hidden max-w-[90vw] w-full",
-          isAnimating ? "opacity-100 max-h-[90vh]" : "opacity-0 max-h-0",
+          'relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl transition-all duration-300 ease-in-out',
+          'overflow-hidden max-w-[90vw] w-full',
+          isAnimating ? 'opacity-100 max-h-[90vh]' : 'opacity-0 max-h-0',
           className
         )}
         onTransitionEnd={handleAnimationEnd}

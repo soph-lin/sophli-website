@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useRef, useEffect, useState } from "react";
-import { cn } from "@/utils/misc";
-import GitHubIcon from "../icons/GitHubIcon";
-import { Linkedin } from "lucide-react";
+import { useRef, useEffect, useState } from 'react';
+import { cn } from '@/utils/misc';
+import GitHubIcon from '../icons/GitHubIcon';
+import { Linkedin } from 'lucide-react';
 
 interface FloatTextProps {
   text: string;
@@ -25,7 +25,7 @@ interface IconPosition extends CharPosition {
 
 export default function FloatText({
   text,
-  className = "",
+  className = '',
   delayMs = 100,
   startAnimation = false,
 }: FloatTextProps) {
@@ -45,9 +45,9 @@ export default function FloatText({
   useEffect(() => {
     if (!startAnimation) return;
 
-    text.split("").forEach((_, index) => {
+    text.split('').forEach((_, index) => {
       setTimeout(() => {
-        setVisibleLetters((prev) => {
+        setVisibleLetters(prev => {
           const next = [...prev];
           next[index] = true;
           return next;
@@ -57,11 +57,11 @@ export default function FloatText({
           setTimeout(() => {
             // Store original positions after drop animation
             const chars =
-              containerRef.current?.getElementsByClassName("float-char");
+              containerRef.current?.getElementsByClassName('float-char');
             if (chars) {
               const containerRect =
                 containerRef.current?.getBoundingClientRect();
-              originalPositions.current = Array.from(chars).map((char) => {
+              originalPositions.current = Array.from(chars).map(char => {
                 const rect = char.getBoundingClientRect();
                 return {
                   x: rect.left - containerRect!.left + rect.width / 2,
@@ -78,7 +78,7 @@ export default function FloatText({
 
   useEffect(() => {
     // Initialize random float offsets for each character
-    charPositions.current = text.split("").map(() => ({
+    charPositions.current = text.split('').map(() => ({
       x: 0,
       y: 0,
       rotation: 0,
@@ -112,8 +112,8 @@ export default function FloatText({
       mousePosition.current = { x: e.clientX, y: e.clientY };
     };
 
-    document.addEventListener("mousemove", handleMouseMove);
-    return () => document.removeEventListener("mousemove", handleMouseMove);
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => document.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   // Handle animation
@@ -123,9 +123,9 @@ export default function FloatText({
     const animate = (time: number) => {
       lastTime.current = time;
 
-      const chars = containerRef.current?.getElementsByClassName("float-char");
+      const chars = containerRef.current?.getElementsByClassName('float-char');
       const icons =
-        containerRef.current?.getElementsByClassName("float-icon-wrapper");
+        containerRef.current?.getElementsByClassName('float-icon-wrapper');
       if (!chars || !icons) return;
 
       const containerRect = containerRef.current?.getBoundingClientRect();
@@ -193,26 +193,26 @@ export default function FloatText({
     <div
       ref={containerRef}
       className={cn(
-        "flex flex-col items-center gap-4 relative overflow-visible select-none",
+        'flex flex-col items-center gap-4 relative overflow-visible select-none',
         className
       )}
     >
       <div className="flex relative">
-        {text.split("").map((letter, index) => (
+        {text.split('').map((letter, index) => (
           <span
             key={index}
             className={cn(
-              "float-char inline-block relative z-[5]",
-              letter === " " && "mr-[1ch]"
+              'float-char inline-block relative z-[5]',
+              letter === ' ' && 'mr-[1ch]'
             )}
             style={{
               transform: visibleLetters[index]
-                ? "translateY(0)"
-                : "translateY(-100%)",
+                ? 'translateY(0)'
+                : 'translateY(-100%)',
               opacity: visibleLetters[index] ? 1 : 0,
-              transition: "transform 500ms cubic-bezier(0.4, 0, 0.2, 1)",
-              willChange: "transform",
-              pointerEvents: "auto",
+              transition: 'transform 500ms cubic-bezier(0.4, 0, 0.2, 1)',
+              willChange: 'transform',
+              pointerEvents: 'auto',
             }}
           >
             {letter}
@@ -227,12 +227,12 @@ export default function FloatText({
             rel="noopener noreferrer"
             className="float-icon inline-block relative z-[5] p-2 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-colors mr-6 cursor-pointer"
             style={{
-              willChange: "transform",
+              willChange: 'transform',
               transition:
-                "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out",
-              transform: hasDropped ? "scale(1)" : "scale(0)",
+                'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out',
+              transform: hasDropped ? 'scale(1)' : 'scale(0)',
               opacity: hasDropped ? 1 : 0,
-              transformOrigin: "center center",
+              transformOrigin: 'center center',
             }}
           >
             <div>
@@ -247,12 +247,12 @@ export default function FloatText({
             rel="noopener noreferrer"
             className="float-icon inline-block relative z-[5] p-2 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-colors cursor-pointer"
             style={{
-              willChange: "transform",
+              willChange: 'transform',
               transition:
-                "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out",
-              transform: hasDropped ? "scale(1)" : "scale(0)",
+                'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out',
+              transform: hasDropped ? 'scale(1)' : 'scale(0)',
               opacity: hasDropped ? 1 : 0,
-              transformOrigin: "center center",
+              transformOrigin: 'center center',
             }}
           >
             <div>

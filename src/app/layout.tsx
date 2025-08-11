@@ -1,21 +1,21 @@
-import "./globals.css";
-import { IBM_Plex_Mono } from "next/font/google";
-import { cn } from "@/utils/misc";
-import { Metadata } from "next";
-import { Toaster } from "react-hot-toast";
+import './globals.css';
+import { IBM_Plex_Mono } from 'next/font/google';
+import { cn } from '@/utils/misc';
+import { Metadata } from 'next';
+import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
-  title: "Sophie Lin",
+  title: 'Sophie Lin',
   icons: {
-    icon: "/favicon/star-black.png",
+    icon: '/favicon/star-black.png',
   },
 };
 
 const ibmPlexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-ibm-plex-mono",
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-ibm-plex-mono',
   preload: true,
   adjustFontFallback: true,
 });
@@ -30,11 +30,11 @@ export default function RootLayout({
       lang="en"
       className={cn(
         ibmPlexMono.variable,
-        "bg-background text-foreground",
-        "[&::-webkit-scrollbar]:w-2",
-        "[&::-webkit-scrollbar-track]:bg-transparent",
-        "[&::-webkit-scrollbar-thumb]:bg-gray-400/20",
-        "[&::-webkit-scrollbar-thumb]:rounded-full"
+        'bg-background text-foreground',
+        '[&::-webkit-scrollbar]:w-2',
+        '[&::-webkit-scrollbar-track]:bg-transparent',
+        '[&::-webkit-scrollbar-thumb]:bg-gray-400/20',
+        '[&::-webkit-scrollbar-thumb]:rounded-full'
       )}
     >
       <head>
@@ -53,9 +53,9 @@ export default function RootLayout({
           toastOptions={{
             duration: 4000,
             style: {
-              background: "var(--background)",
-              color: "var(--foreground)",
-              border: "1px solid rgba(0, 0, 0, 0.1)",
+              background: 'var(--background)',
+              color: 'var(--foreground)',
+              border: '1px solid rgba(0, 0, 0, 0.1)',
             },
           }}
         />
