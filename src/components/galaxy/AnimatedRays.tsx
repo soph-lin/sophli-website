@@ -17,10 +17,19 @@ const AnimatedRays = ({ className = "" }: AnimatedRaysProps) => {
     if (!ctx) return;
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
     };
     resizeCanvas();
+    
+    // Use ResizeObserver for more reliable resizing
+    const resizeObserver = new ResizeObserver(() => {
+      resizeCanvas();
+    });
+    resizeObserver.observe(canvas);
+    
+    // Also listen to window resize as fallback
     window.addEventListener("resize", resizeCanvas);
 
     const numberOfRays = 5;
@@ -107,6 +116,7 @@ const AnimatedRays = ({ className = "" }: AnimatedRaysProps) => {
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
+      resizeObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
     };
   }, []);

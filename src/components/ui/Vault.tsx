@@ -55,7 +55,7 @@ export default function Vault({ isOpen, onClose }: VaultProps) {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} className="w-full max-w-4xl">
+      <Modal isOpen={isOpen} onClose={onClose} className="w-full max-w-4xl" zIndex={50}>
         <div className="space-y-6">
           <div className="text-center">
             <h2 className="text-3xl font-bold mb-2">Handle Vault</h2>
@@ -114,6 +114,7 @@ export default function Vault({ isOpen, onClose }: VaultProps) {
         isOpen={!!selectedHandle}
         onClose={() => setSelectedHandle(null)}
         className="w-full max-w-md"
+        zIndex={100}
       >
         {selectedHandle && (
           <div className="text-center space-y-4">
