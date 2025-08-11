@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "rm -rf .next node_modules pnpm-lock.yaml",
+    "reinstall": "pnpm clean && pnpm install"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
