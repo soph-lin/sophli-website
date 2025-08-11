@@ -12,11 +12,18 @@
   --foreground: #ededed;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-geist-sans);
+  font-family: var(--font-ibm-plex-mono);
   transition: background-color 0.5s ease-out;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 @keyframes titleDrop {

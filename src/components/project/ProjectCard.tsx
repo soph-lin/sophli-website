@@ -8,7 +8,7 @@ import HandHeartIcon from "../icons/HandHeartIcon";
 import Tooltip from "../ui/Tooltip";
 import { cn } from "@/utils/misc";
 import { formatDate } from "@/utils/date";
-const NUM_DEFAULT_COVERS = 4;
+import { projectCovers } from "@/data/projectCovers";
 
 export interface ProjectCardProps {
   name: string;
@@ -39,8 +39,8 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [aspectRatio, setAspectRatio] = useState(16 / 9);
-  const [defaultCoverNumber] = useState(() =>
-    Math.floor(Math.random() * NUM_DEFAULT_COVERS)
+  const [defaultCover] = useState(
+    () => projectCovers[Math.floor(Math.random() * projectCovers.length)]
   );
   const thumbnailVideoRef = useRef<HTMLVideoElement>(null);
   const contentVideoRef = useRef<HTMLVideoElement>(null);
@@ -63,8 +63,7 @@ export default function ProjectCard({
   }, [isHovered, playThumbnailOnHover, content]);
 
   // Use default cover if no thumbnail and content provided
-  const effectiveThumbnail =
-    thumbnail || `/project-covers/${defaultCoverNumber}.jpg`;
+  const effectiveThumbnail = thumbnail || `/project-covers/${defaultCover}`;
   const isThumbnailVideo = effectiveThumbnail.toLowerCase().endsWith(".mp4");
   const isContentVideo = content?.toLowerCase().endsWith(".mp4");
   const contentUrl = content || effectiveThumbnail;
@@ -80,21 +79,16 @@ export default function ProjectCard({
 
   return (
     <div
-      className={cn(
-        "bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:scale-105",
-        thumbnail ? "w-full" : "w-80"
-      )}
+      className="w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:scale-105"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className={cn(
-          "relative",
-          thumbnail
-            ? "w-full"
-            : "h-80 flex justify-center items-center overflow-hidden"
-        )}
-        style={{ aspectRatio: thumbnail ? aspectRatio : "auto" }}
+        className="relative w-full"
+        style={{
+          aspectRatio: thumbnail ? aspectRatio : "auto",
+          minHeight: !thumbnail ? "200px" : "auto",
+        }}
       >
         {/* Thumbnail */}
         {isThumbnailVideo ? (
@@ -113,13 +107,10 @@ export default function ProjectCard({
           <Image
             src={effectiveThumbnail}
             alt={`${name} thumbnail`}
-            fill={!!thumbnail}
-            width={!thumbnail ? 320 : undefined}
-            height={!thumbnail ? 320 : undefined}
+            fill
             className={cn(
-              "object-cover transition-opacity duration-300",
-              isHovered && content ? "opacity-0" : "opacity-100",
-              !thumbnail && "!relative"
+              "object-contain transition-opacity duration-300",
+              isHovered && content ? "opacity-0" : "opacity-100"
             )}
             sizes="100%"
             onLoad={(e) => handleMediaLoad(e.currentTarget)}

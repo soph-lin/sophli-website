@@ -8,6 +8,7 @@ interface ModalProps {
   onClose: () => void;
   children: React.ReactNode;
   className?: string;
+  zIndex?: number;
 }
 
 export default function Modal({
@@ -15,6 +16,7 @@ export default function Modal({
   onClose,
   children,
   className,
+  zIndex = 50,
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -38,18 +40,28 @@ export default function Modal({
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
       ) {
-        onClose();
+        // Check if the click is on the backdrop of this specific modal
+        const target = event.target as Node;
+        const backdrop = modalRef.current.querySelector('div[class*="bg-black/50"]');
+        const isClickingOnBackdrop = backdrop && backdrop.contains(target);
+        
+        // Only close if clicking on this modal's backdrop
+        if (isClickingOnBackdrop) {
+          onClose();
+        }
       }
     };
 
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "unset";
     };
   }, [isOpen, onClose]);
 
@@ -66,7 +78,11 @@ export default function Modal({
   if (!shouldRender) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div 
+      className="fixed inset-0 flex items-center justify-center overflow-hidden"
+      style={{ zIndex }}
+      data-modal="true"
+    >
       {/* Backdrop */}
       <div
         className={cn(
@@ -80,7 +96,7 @@ export default function Modal({
         ref={modalRef}
         className={cn(
           "relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl transition-all duration-300 ease-in-out",
-          "overflow-hidden max-w-[90vw]",
+          "overflow-hidden max-w-[90vw] w-full",
           isAnimating ? "opacity-100 max-h-[90vh]" : "opacity-0 max-h-0",
           className
         )}

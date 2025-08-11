@@ -196,7 +196,7 @@ export default function ProjectTimeline({
             <div className="absolute top-1/2 left-[-10%] w-[120%] h-0.5 border-b border-dashed border-gray-400" />
 
             <div>
-              <div className="relative min-h-[28rem] w-[500%]">
+              <div className="relative min-h-[28rem] w-full">
                 {projects.map((project, index) => (
                   <div
                     key={index}
