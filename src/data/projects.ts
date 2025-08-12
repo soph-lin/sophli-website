@@ -4,7 +4,8 @@ const projects: ProjectCardProps[] = [
   {
     name: 'Polyphi',
     description: 'Citation automator for Submittable platform',
-    tags: ['Chrome Extension', 'Javascript'],
+    areas: ['Web', 'Productivity'],
+    skills: ['Chrome Extension', 'Javascript'],
     startDate: '05/2022',
     endDate: '10/2022',
     thumbnail: '/projects/polyphi-demo.mp4',
@@ -15,7 +16,8 @@ const projects: ProjectCardProps[] = [
     name: 'sophli-legacy',
     description:
       'Original personal website when I was learning the ropes of web dev, just a cozy lil guy',
-    tags: ['HTML', 'PHP', 'CSS', 'JavaScript'],
+    areas: ['Web'],
+    skills: ['HTML', 'PHP', 'CSS', 'JavaScript'],
     startDate: '02/2023',
     endDate: '02/2025',
     thumbnail: '/projects/sophli-legacy-thumbnail.gif',
@@ -25,7 +27,8 @@ const projects: ProjectCardProps[] = [
   {
     name: 'gink-go!',
     description: 'Research automation tool for Science Olympiad',
-    tags: ['HTML', 'CSS', 'JavaScript', 'Node.js'],
+    areas: ['Web', 'Productivity', 'Education'],
+    skills: ['HTML', 'CSS', 'JavaScript', 'Node.js'],
     startDate: '03/2023',
     endDate: '05/2023',
     thumbnail: '/projects/ginkgo-thumbnail.gif',
@@ -37,7 +40,8 @@ const projects: ProjectCardProps[] = [
     name: 'Spotistats',
     description:
       'Precursor to Melody Lane, tracks history of added songs using Spotify API',
-    tags: ['HTML', 'CSS', 'JavaScript', 'Spotify API'],
+    areas: ['Web', 'Music'],
+    skills: ['HTML', 'CSS', 'JavaScript', 'Spotify API'],
     startDate: '04/2024',
     endDate: '09/2024',
     thumbnail: '/projects/spotistats-thumbnail.gif',
@@ -49,7 +53,8 @@ const projects: ProjectCardProps[] = [
   {
     name: 'TabPet',
     description: 'A virtual companion for your browser',
-    tags: ['Chrome Extension', 'Javascript'],
+    areas: ['Web', 'Game'],
+    skills: ['Chrome Extension', 'Javascript'],
     startDate: '07/2024',
     endDate: 'Present',
     thumbnail: '/projects/tabpet-thumbnail.gif',
@@ -60,7 +65,8 @@ const projects: ProjectCardProps[] = [
     name: 'AgriSphere',
     description:
       'Web platform that analyzes crucial NASA geospatial data for agricultural workers • Built for NASA Space Apps 2024',
-    tags: ['React', 'Flask', 'Node.js', 'Web Scraping', 'Hackathon'],
+    areas: ['Web', 'Hackathon', 'Data Science'],
+    skills: ['React', 'Flask', 'Node.js', 'Web Scraping'],
     startDate: '10/2024',
     thumbnail: '/projects/agrisphere-thumbnail.gif',
     content: '/projects/agrisphere-demo.mp4',
@@ -72,7 +78,8 @@ const projects: ProjectCardProps[] = [
     name: 'Melody Lane',
     description:
       'Take a trip down musical memory lane through your Spotify library',
-    tags: ['React', 'TypeScript', 'Next.js'],
+    areas: ['Web', 'Music'],
+    skills: ['React', 'TypeScript', 'Next.js'],
     startDate: '10/2024',
     endDate: 'Present',
     thumbnail: '/projects/melodylane-thumbnail.gif',
@@ -84,7 +91,8 @@ const projects: ProjectCardProps[] = [
     name: 'sophli (Personal Website)',
     description:
       "Literally what you're looking at right now. Migrating from the old tech stack was definitely tricky, but totally worth it! More features coming some hehe",
-    tags: ['React', 'TypeScript', 'Next.js'],
+    areas: ['Web'],
+    skills: ['React', 'TypeScript', 'Next.js'],
     startDate: '01/2025',
     endDate: 'Present',
     thumbnail: '/projects/sophli-thumbnail.gif',
@@ -96,7 +104,8 @@ const projects: ProjectCardProps[] = [
     name: 'Hot on the Market',
     description:
       'Gamified platform to help aspiring investors make their next hot pick • Won Honorable Mention for Best Financial Hack in HackIllinois 2025 (1,000+ participants)',
-    tags: ['React', 'TypeScript', 'Python', 'Chart.js', 'SQLite', 'Hackathon'],
+    areas: ['Web', 'Hackathon', 'Finance', 'Game'],
+    skills: ['React', 'TypeScript', 'Python', 'Chart.js', 'SQLite'],
     startDate: '02/2025',
     thumbnail: '/projects/hotonthemarket-thumbnail.gif',
     content: '/projects/hotonthemarket-demo.mp4',
@@ -108,7 +117,8 @@ const projects: ProjectCardProps[] = [
     name: 'HausaNLP',
     description:
       'Hub to upload and manage datasets for underrepresented languages in natural language processing',
-    tags: [
+    areas: ['AI', 'Web', 'Research'],
+    skills: [
       'React',
       'TypeScript',
       'Next.js',
@@ -129,14 +139,23 @@ const projects: ProjectCardProps[] = [
   {
     name: 'Jinship',
     description: 'Chatbot to navigate nonprofit and government websites',
-    tags: ['LangChain', 'OpenAI API', 'React', 'MongoDB', 'FastAPI', 'Uvicorn'],
+    areas: ['AI', 'Web'],
+    skills: [
+      'LangChain',
+      'OpenAI API',
+      'React',
+      'MongoDB',
+      'FastAPI',
+      'Uvicorn',
+    ],
     startDate: '09/2024',
     endDate: '12/2024',
   },
   {
     name: 'Code Your Dreams',
     description: 'Web platform to help students learn to code',
-    tags: ['React', 'TypeScript', 'Next.js', 'Chakra UI', 'PostgreSQL'],
+    areas: ['Web', 'Education'],
+    skills: ['React', 'TypeScript', 'Next.js', 'Chakra UI', 'PostgreSQL'],
     startDate: '02/2025',
     endDate: 'Present',
     demoLink: 'https://cydhub.vercel.app',
@@ -146,7 +165,8 @@ const projects: ProjectCardProps[] = [
     name: 'State of Illinois RDBMS',
     description:
       'Database system that tracks cannabis sales and analyzes sales data through sentiment analysis, in collaboration with the State of Illinois',
-    tags: ['React', 'Flask', 'AWS', 'ML'],
+    areas: ['Web', 'Data Science', 'Government'],
+    skills: ['React', 'Flask', 'AWS', 'ML'],
     startDate: '02/2025',
     endDate: 'Present',
   },
@@ -154,7 +174,8 @@ const projects: ProjectCardProps[] = [
     name: 'MyMCAT.ai (Lead Developer)',
     description:
       'Edtech startup offering tailored MCAT prep for traditionally underserved students',
-    tags: [
+    areas: ['Web', 'Education', 'Internship'],
+    skills: [
       'React',
       'TypeScript',
       'Node.js',
@@ -163,7 +184,6 @@ const projects: ProjectCardProps[] = [
       'Prisma',
       'Clerk',
       'JWT',
-      'Internship',
     ],
     startDate: '02/2025',
     endDate: 'Present',
@@ -173,7 +193,8 @@ const projects: ProjectCardProps[] = [
   {
     name: 'Playtime',
     description: 'Multiplayer music game',
-    tags: [
+    areas: ['Web', 'Music', 'Game'],
+    skills: [
       'React',
       'TypeScript',
       'Next.js',
@@ -194,7 +215,8 @@ const projects: ProjectCardProps[] = [
   // {
   //   name: "Project 1",
   //   description: "Description of project 1",
-  //   tags: ["React", "TypeScript", "Next.js"],
+  //   areas: ["Web"],
+  //   skills: ["React", "TypeScript", "Next.js"],
   //   startDate: "2023",
   //   endDate: "Present",
   //   thumbnail: "/path/to/project1.gif"

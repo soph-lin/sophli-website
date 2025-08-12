@@ -13,7 +13,8 @@ import { projectCovers } from '@/data/projectCovers';
 export interface ProjectCardProps {
   name: string;
   description: string;
-  tags: string[];
+  areas: string[];
+  skills: string[];
   startDate: string;
   endDate?: string;
   thumbnail?: string;
@@ -27,7 +28,8 @@ export interface ProjectCardProps {
 export default function ProjectCard({
   name,
   description,
-  tags,
+  areas,
+  skills,
   startDate,
   endDate,
   thumbnail,
@@ -180,12 +182,12 @@ export default function ProjectCard({
           {description}
         </p>
         <div className="flex flex-wrap gap-2 mb-3">
-          {tags.map(tag => (
+          {[...areas, ...skills].map(area => (
             <span
-              key={tag}
+              key={area}
               className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 text-xs rounded-full"
             >
-              #{tag}
+              #{area}
             </span>
           ))}
         </div>

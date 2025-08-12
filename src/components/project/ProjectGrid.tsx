@@ -41,11 +41,12 @@ export default function ProjectGrid({
   const [hasTyped, setHasTyped] = useState(false);
   const [isGridVisible, setIsGridVisible] = useState(false);
 
-  // Get all unique tags from projects
+  // Get all unique tags from projects (combining areas and skills)
   const allTags = useMemo(() => {
     const tags = new Set<string>();
     projects.forEach(project => {
-      project.tags.forEach(tag => tags.add(tag));
+      project.areas.forEach(area => tags.add(area));
+      project.skills.forEach(skill => tags.add(skill));
     });
     return Array.from(tags).sort();
   }, [projects]);
@@ -60,7 +61,9 @@ export default function ProjectGrid({
 
       const matchesTags =
         selectedTags.length === 0 ||
-        selectedTags.some(tag => project.tags.includes(tag));
+        selectedTags.some(
+          tag => project.areas.includes(tag) || project.skills.includes(tag)
+        );
 
       return matchesSearch && matchesTags;
     });
