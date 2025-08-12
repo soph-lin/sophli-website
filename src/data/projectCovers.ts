@@ -10,4 +10,8 @@ export const projectCovers = [
   'patio.jpg',
   'computer.jpg',
   'closet.jpg',
+  'bear.jpg',
+  'bedroom.jpg',
+  'ramen.jpg',
+  'roof.jpg'
 ];
