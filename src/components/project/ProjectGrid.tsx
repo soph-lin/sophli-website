@@ -25,9 +25,9 @@ export default function ProjectGrid({
       return parseInt(year) * 12 + parseInt(month);
     };
 
-    // First, sort by whether the project is ongoing (endDate === "Present")
-    const aIsOngoing = a.endDate?.toLowerCase() === 'present';
-    const bIsOngoing = b.endDate?.toLowerCase() === 'present';
+    // First, sort by whether the project is ongoing (endDate === "Present" or undefined)
+    const aIsOngoing = a.endDate?.toLowerCase() === 'present' || !a.endDate;
+    const bIsOngoing = b.endDate?.toLowerCase() === 'present' || !b.endDate;
 
     if (aIsOngoing && !bIsOngoing) return -1; // a is ongoing, b is not
     if (!aIsOngoing && bIsOngoing) return 1; // b is ongoing, a is not

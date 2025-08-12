@@ -24,10 +24,18 @@ export default function ProjectTimeline({
   projects: unsortedProjects,
   startAnimation,
 }: ProjectTimelineProps) {
-  // Sort projects by start date (mm/yyyy)
-  const projects = [...unsortedProjects].sort(
-    (a, b) => dateToNumber(b.startDate) - dateToNumber(a.startDate)
-  );
+  // Sort projects by most recent first (ongoing projects first, then by start date)
+  const projects = [...unsortedProjects].sort((a, b) => {
+    // First, sort by whether the project is ongoing (endDate === "Present" or undefined)
+    const aIsOngoing = a.endDate?.toLowerCase() === 'present' || !a.endDate;
+    const bIsOngoing = b.endDate?.toLowerCase() === 'present' || !b.endDate;
+
+    if (aIsOngoing && !bIsOngoing) return -1; // a is ongoing, b is not
+    if (!aIsOngoing && bIsOngoing) return 1; // b is ongoing, a is not
+
+    // If both are ongoing or both are completed, sort by start date (most recent first)
+    return dateToNumber(b.startDate) - dateToNumber(a.startDate);
+  });
 
   const [isTimelineVisible, setIsTimelineVisible] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
