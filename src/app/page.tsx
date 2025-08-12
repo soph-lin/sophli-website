@@ -55,15 +55,15 @@ export default function Home() {
         <Navbar onInitialLoad={handleInitialLoad} />
       </div>
 
-      <div className="flex-1 flex flex-col">
-        <div className="flex-1 flex items-center justify-center">
+      <div className="flex-grow flex flex-col">
+        <div className="flex items-center justify-center overflow-visible">
           <main
             className={cn(
-              'transition-opacity duration-500 px-5',
+              'transition-opacity duration-500 px-5 w-full overflow-visible',
               showContent ? 'opacity-100' : 'opacity-0'
             )}
           >
-            <div className="w-full h-[calc(100vh-20px)] flex items-center justify-center relative">
+            <div className="w-full min-h-[calc(100vh-20px)] flex items-center justify-center relative">
               <FloatText
                 text="sophie lin"
                 className="text-4xl font-bold text-foreground z-10"
@@ -75,7 +75,7 @@ export default function Home() {
             </div>
             <div
               className={cn(
-                'w-full transition-opacity duration-500 mb-32',
+                'w-full transition-opacity duration-500 mb-32 flex-grow projects-section',
                 showProjects ? 'opacity-100' : 'opacity-0'
               )}
             >

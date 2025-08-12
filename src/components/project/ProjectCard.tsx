@@ -79,15 +79,16 @@ export default function ProjectCard({
 
   return (
     <div
-      className="w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:scale-105"
+      className="w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:scale-105 max-h-[600px] project-card-container"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className="relative w-full"
+        className="relative w-full overflow-hidden"
         style={{
           aspectRatio: thumbnail ? aspectRatio : 'auto',
           minHeight: !thumbnail ? '200px' : 'auto',
+          maxHeight: '400px',
         }}
       >
         {/* Thumbnail */}

@@ -89,11 +89,11 @@ export default function ProjectGrid({
   }
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full overflow-visible">
       {/* Search and Filters */}
       <div
         className={cn(
-          'max-w-7xl mx-auto px-4 mb-8 transition-opacity duration-1000',
+          'max-w-7xl mx-auto px-4 mb-8 transition-opacity duration-1000 overflow-visible',
           isGridVisible ? 'opacity-100' : 'opacity-0'
         )}
       >
@@ -163,16 +163,16 @@ export default function ProjectGrid({
       {/* Projects Grid */}
       <div
         className={cn(
-          'max-w-7xl mx-auto px-4 mb-32 transition-opacity duration-1000',
+          'max-w-7xl mx-auto px-4 mb-32 transition-opacity duration-1000 overflow-visible',
           isGridVisible ? 'opacity-100' : 'opacity-0'
         )}
       >
         {filteredProjects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start overflow-visible">
             {filteredProjects.map((project, index) => (
               <div
                 key={index}
-                className="animate-fade-in w-full max-w-sm"
+                className="animate-fade-in w-full overflow-visible"
                 style={{
                   animationDelay: `${index * 100}ms`,
                   animationFillMode: 'both',
