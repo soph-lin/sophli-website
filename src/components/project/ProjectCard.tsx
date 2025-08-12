@@ -47,9 +47,20 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [aspectRatio, setAspectRatio] = useState(16 / 9);
-  const [defaultCover] = useState(
-    () => projectCovers[Math.floor(Math.random() * projectCovers.length)]
-  );
+
+  // Deterministic cover selection based on project name to avoid hydration mismatch
+  const getDeterministicCover = (projectName: string) => {
+    let hash = 0;
+    for (let i = 0; i < projectName.length; i++) {
+      const char = projectName.charCodeAt(i);
+      hash = (hash << 5) - hash + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    return projectCovers[Math.abs(hash) % projectCovers.length];
+  };
+
+  const [defaultCover] = useState(() => getDeterministicCover(name));
+
   const thumbnailVideoRef = useRef<HTMLVideoElement>(null);
   const contentVideoRef = useRef<HTMLVideoElement>(null);
 
