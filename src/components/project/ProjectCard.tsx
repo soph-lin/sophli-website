@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
-import { RocketLaunch } from 'phosphor-react';
+import { RocketLaunch, PushPin } from 'phosphor-react';
 import GitHubIcon from '../icons/GitHubIcon';
 import HandHeartIcon from '../icons/HandHeartIcon';
 import Tooltip from '../ui/Tooltip';
@@ -23,6 +23,7 @@ export interface ProjectCardProps {
   demoLink?: string;
   githubLink?: string;
   clientLink?: string;
+  pinned?: boolean;
 }
 
 export default function ProjectCard({
@@ -38,6 +39,7 @@ export default function ProjectCard({
   githubLink,
   clientLink,
   playThumbnailOnHover,
+  pinned,
 }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [aspectRatio, setAspectRatio] = useState(16 / 9);
@@ -261,6 +263,13 @@ export default function ProjectCard({
                 <HandHeartIcon />
               </Tooltip>
             </a>
+          )}
+          {pinned && (
+            <Tooltip content="Pinned">
+              <div className="text-blue-500 dark:text-blue-400 -mb-[5px]">
+                <PushPin size={24} weight="fill" />
+              </div>
+            </Tooltip>
           )}
         </div>
         <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">

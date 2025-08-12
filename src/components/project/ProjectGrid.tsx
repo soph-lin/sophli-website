@@ -25,7 +25,11 @@ export default function ProjectGrid({
       return parseInt(year) * 12 + parseInt(month);
     };
 
-    // First, sort by whether the project is ongoing (endDate === "Present" or undefined)
+    // First, sort by pinned status (pinned projects first)
+    if (a.pinned && !b.pinned) return -1; // a is pinned, b is not
+    if (!a.pinned && b.pinned) return 1; // b is pinned, a is not
+
+    // If both are pinned or both are not pinned, sort by ongoing status
     const aIsOngoing = a.endDate?.toLowerCase() === 'present' || !a.endDate;
     const bIsOngoing = b.endDate?.toLowerCase() === 'present' || !b.endDate;
 
