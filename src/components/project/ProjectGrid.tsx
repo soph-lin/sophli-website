@@ -80,6 +80,13 @@ export default function ProjectGrid({
     );
   };
 
+  // Handle tag clicks from project cards
+  const handleTagClick = (tag: string) => {
+    setSelectedTags(prev =>
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+    );
+  };
+
   // Clear all filters
   const clearFilters = () => {
     setSearchQuery('');
@@ -185,7 +192,11 @@ export default function ProjectGrid({
                   animationFillMode: 'both',
                 }}
               >
-                <ProjectCard {...project} />
+                <ProjectCard
+                  {...project}
+                  onTagClick={handleTagClick}
+                  selectedTags={selectedTags}
+                />
               </div>
             ))}
           </div>

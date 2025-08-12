@@ -24,6 +24,8 @@ export interface ProjectCardProps {
   githubLink?: string;
   clientLink?: string;
   pinned?: boolean;
+  onTagClick?: (tag: string) => void;
+  selectedTags?: string[];
 }
 
 export default function ProjectCard({
@@ -40,6 +42,8 @@ export default function ProjectCard({
   clientLink,
   playThumbnailOnHover,
   pinned,
+  onTagClick,
+  selectedTags,
 }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [aspectRatio, setAspectRatio] = useState(16 / 9);
@@ -279,7 +283,15 @@ export default function ProjectCard({
           {[...areas, ...skills].map(area => (
             <span
               key={area}
-              className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 text-xs rounded-full"
+              className={cn(
+                'px-2 py-1 rounded-full cursor-pointer transition-all duration-200 select-none text-xs',
+                selectedTags?.includes(area)
+                  ? 'bg-blue-500 dark:bg-blue-600 text-white shadow-md'
+                  : 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 hover:bg-blue-200 dark:hover:bg-blue-800 hover:scale-105',
+                onTagClick && 'hover:shadow-sm'
+              )}
+              onClick={() => onTagClick?.(area)}
+              title={onTagClick ? `Click to filter by ${area}` : undefined}
             >
               #{area}
             </span>
