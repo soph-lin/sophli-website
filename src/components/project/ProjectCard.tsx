@@ -47,8 +47,43 @@ export default function ProjectCard({
   const thumbnailVideoRef = useRef<HTMLVideoElement>(null);
   const contentVideoRef = useRef<HTMLVideoElement>(null);
 
+  // Use default cover if no thumbnail and content provided
+  const effectiveThumbnail = thumbnail || `/project-covers/${defaultCover}`;
+
+  // Enhanced file type detection for better static image support
+  // Supports: PNG, JPG, JPEG, GIF, WebP, SVG, BMP for images
+  // Supports: MP4, WebM, OGG, MOV, AVI for videos
+  const isVideoFile = (filename: string) => {
+    const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.avi'];
+    return videoExtensions.some(ext => filename.toLowerCase().endsWith(ext));
+  };
+
+  const isImageFile = (filename: string) => {
+    const imageExtensions = [
+      '.png',
+      '.jpg',
+      '.jpeg',
+      '.gif',
+      '.webp',
+      '.svg',
+      '.bmp',
+    ];
+    return imageExtensions.some(ext => filename.toLowerCase().endsWith(ext));
+  };
+
+  const isThumbnailVideo = isVideoFile(effectiveThumbnail);
+  const isThumbnailImage = isImageFile(effectiveThumbnail);
+  const isContentVideo = content ? isVideoFile(content) : false;
+  const isContentImage = content ? isImageFile(content) : false;
+  const contentUrl = content || effectiveThumbnail;
+
   useEffect(() => {
-    if (thumbnailVideoRef.current && (playThumbnailOnHover || content)) {
+    // Only handle video playback for video files
+    if (
+      thumbnailVideoRef.current &&
+      isThumbnailVideo &&
+      (playThumbnailOnHover || content)
+    ) {
       if (isHovered) {
         thumbnailVideoRef.current.play();
       } else {
@@ -56,26 +91,30 @@ export default function ProjectCard({
         thumbnailVideoRef.current.currentTime = 0;
       }
     }
-    if (contentVideoRef.current && isHovered) {
+    if (contentVideoRef.current && isContentVideo && isHovered) {
       contentVideoRef.current.play();
-    } else if (contentVideoRef.current) {
+    } else if (contentVideoRef.current && isContentVideo) {
       contentVideoRef.current.pause();
       contentVideoRef.current.currentTime = 0;
     }
-  }, [isHovered, playThumbnailOnHover, content]);
-
-  // Use default cover if no thumbnail and content provided
-  const effectiveThumbnail = thumbnail || `/project-covers/${defaultCover}`;
-  const isThumbnailVideo = effectiveThumbnail.toLowerCase().endsWith('.mp4');
-  const isContentVideo = content?.toLowerCase().endsWith('.mp4');
-  const contentUrl = content || effectiveThumbnail;
+  }, [
+    isHovered,
+    playThumbnailOnHover,
+    content,
+    isThumbnailVideo,
+    isContentVideo,
+  ]);
 
   // Handle loading media and set correct aspect ratio
+  // For phone-ratio content (aspectRatio < 1), we enforce max height
+  // For landscape content (aspectRatio > 1), we use natural aspect ratio
   const handleMediaLoad = (element: HTMLImageElement | HTMLVideoElement) => {
     if (element instanceof HTMLImageElement) {
-      setAspectRatio(element.naturalWidth / element.naturalHeight);
+      const ratio = element.naturalWidth / element.naturalHeight;
+      setAspectRatio(ratio);
     } else if (element instanceof HTMLVideoElement) {
-      setAspectRatio(element.videoWidth / element.videoHeight);
+      const ratio = element.videoWidth / element.videoHeight;
+      setAspectRatio(ratio);
     }
   };
 
@@ -86,67 +125,113 @@ export default function ProjectCard({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className="relative w-full overflow-hidden"
+        className="relative w-full overflow-hidden rounded-t-lg"
         style={{
-          aspectRatio: thumbnail ? aspectRatio : 'auto',
+          // For phone-ratio content (aspectRatio < 1), use auto height to allow shrinking
+          // For landscape content (aspectRatio > 1), use natural aspect ratio
+          aspectRatio: thumbnail && aspectRatio >= 1 ? aspectRatio : 'auto',
           minHeight: !thumbnail ? '200px' : 'auto',
           maxHeight: '400px',
+          // For phone-ratio thumbnails, don't force height - let them shrink naturally
+          // This creates extra space on left/right for vertical images
+          height: !thumbnail ? '200px' : 'auto',
         }}
       >
         {/* Thumbnail */}
         {isThumbnailVideo ? (
           <video
             src={effectiveThumbnail}
-            className={`object-cover transition-opacity duration-300 ${
+            className={`w-full h-full transition-opacity duration-300 ${
               isHovered && content ? 'opacity-0' : 'opacity-100'
             }`}
+            style={{
+              // Default thumbnails (from project-covers) should fill the card
+              // Actual project thumbnails should use contain for proper sizing
+              objectFit: effectiveThumbnail.includes('project-covers')
+                ? 'cover'
+                : 'contain',
+              objectPosition: 'center',
+            }}
             ref={thumbnailVideoRef}
             muted
             loop
             playsInline
             onLoadedMetadata={e => handleMediaLoad(e.currentTarget)}
           />
-        ) : (
+        ) : isThumbnailImage ? (
           <Image
             src={effectiveThumbnail}
             alt={`${name} thumbnail`}
             fill
             className={cn(
-              'object-contain transition-opacity duration-300',
+              'transition-opacity duration-300',
               isHovered && content ? 'opacity-0' : 'opacity-100'
             )}
+            style={{
+              // Default thumbnails (from project-covers) should fill the card
+              // Actual project thumbnails should use contain for proper sizing
+              objectFit: effectiveThumbnail.includes('project-covers')
+                ? 'cover'
+                : 'contain',
+              objectPosition: 'center',
+            }}
             sizes="100%"
             onLoad={e => handleMediaLoad(e.currentTarget)}
             draggable={false}
           />
+        ) : (
+          // Fallback for other file types or no thumbnail
+          <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center rounded-t-lg">
+            <span className="text-gray-500 dark:text-gray-400 text-sm">
+              No thumbnail
+            </span>
+          </div>
         )}
         {/* Content */}
         {content &&
           (isContentVideo ? (
             <video
               src={contentUrl}
-              className={`absolute inset-0 object-contain transition-opacity duration-300 ${
+              className={`absolute inset-0 transition-opacity duration-300 ${
                 isHovered ? 'opacity-100' : 'opacity-0'
               }`}
+              style={{
+                objectFit: 'contain',
+                maxHeight: '400px',
+                width: '100%',
+                height: '100%',
+              }}
               ref={contentVideoRef}
               muted
               loop
               playsInline
               onLoadedMetadata={e => handleMediaLoad(e.currentTarget)}
             />
-          ) : (
+          ) : isContentImage ? (
             <Image
               src={contentUrl}
               alt={`${name} content`}
               fill
-              className={`object-contain transition-opacity duration-300 ${
+              className={`transition-opacity duration-300 ${
                 isHovered ? 'opacity-100' : 'opacity-0'
               }`}
-              style={{ opacity: isHovered ? 1 : 0 }}
+              style={{
+                objectFit: 'contain',
+                opacity: isHovered ? 1 : 0,
+                maxHeight: '400px',
+              }}
               priority={true}
               sizes="100%"
               onLoad={e => handleMediaLoad(e.currentTarget)}
+              draggable={false}
             />
+          ) : (
+            // Fallback for other content file types
+            <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 flex items-center justify-center rounded-t-lg">
+              <span className="text-gray-500 dark:text-gray-400 text-sm">
+                Content not supported
+              </span>
+            </div>
           ))}
       </div>
       <div className="p-4">
