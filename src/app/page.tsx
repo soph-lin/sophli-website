@@ -10,6 +10,7 @@ import ProjectGrid from '@/components/project/ProjectGrid';
 import AnimatedRays from '@/components/galaxy/AnimatedRays';
 import { SquaresFour, List, CaretDown } from 'phosphor-react';
 import projects from '@/data/projects';
+import { getRandomAsciiArt } from '@/data/asciiArt';
 
 export default function Home() {
   const [showContent, setShowContent] = useState(false);
@@ -18,6 +19,57 @@ export default function Home() {
   const [viewMode, setViewMode] = useState<'grid' | 'timeline'>('grid');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const consoleSetupRef = useRef(false);
+  const isRegeneratingRef = useRef(false);
+
+  useEffect(() => {
+    // Only set up console commands once
+    if (consoleSetupRef.current) return;
+    consoleSetupRef.current = true;
+
+    // Easter egg: log random ASCII art on page load
+    const message = `Nice to meet you here in the console ;)
+  If you ever want to collab on a project or just chat, feel free to reach out on LinkedIn: https://www.linkedin.com/in/sophie-lin-b7aabb321/`;
+
+    // Initial console output
+    const randomArt = getRandomAsciiArt();
+    console.log(randomArt);
+    console.log(message);
+
+    // Add custom console command
+    (window as any).foo = function () {
+      isRegeneratingRef.current = true;
+      const newArt = getRandomAsciiArt();
+      console.clear();
+      console.log(newArt);
+      console.log(message);
+      console.log(
+        '🎨 ASCII art regenerated! Type "foo()" or console.clear() to do it again.'
+      );
+      isRegeneratingRef.current = false;
+      return; // Explicitly return nothing
+    };
+
+    // Override console.clear to also regenerate art
+    const originalClear = console.clear;
+    console.clear = () => {
+      const result = originalClear.call(console);
+      // Only regenerate if not already regenerating
+      if (!isRegeneratingRef.current) {
+        const newArt = getRandomAsciiArt();
+        console.log(newArt);
+        console.log(message);
+        console.log(
+          '🎨 ASCII art regenerated! Type "foo() or console.clear()" to do it again.'
+        );
+      }
+      return result;
+    };
+
+    console.log(
+      '💡 Tip: Type "foo()" or use console.clear() to get new ASCII art!'
+    );
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {

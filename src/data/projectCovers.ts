@@ -13,5 +13,5 @@ export const projectCovers = [
   'bear.jpg',
   'bedroom.jpg',
   'ramen.jpg',
-  'roof.jpg'
+  'roof.jpg',
 ];
