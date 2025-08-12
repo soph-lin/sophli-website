@@ -5,7 +5,7 @@ const projects: ProjectCardProps[] = [
     name: 'Polyphi',
     description: 'Citation automator for Submittable platform',
     areas: ['Web', 'Productivity'],
-    skills: ['Chrome Extension', 'Javascript'],
+    skills: ['Chrome Extension', 'JavaScript'],
     startDate: '05/2022',
     endDate: '10/2022',
     thumbnail: '/projects/polyphi-demo.mp4',
@@ -40,8 +40,8 @@ const projects: ProjectCardProps[] = [
     name: 'Spotistats',
     description:
       'Precursor to Melody Lane, tracks history of added songs using Spotify API',
-    areas: ['Web', 'Music'],
-    skills: ['HTML', 'CSS', 'JavaScript', 'Spotify API'],
+    areas: ['Web', 'API', 'Music'],
+    skills: ['HTML', 'CSS', 'JavaScript'],
     startDate: '04/2024',
     endDate: '09/2024',
     thumbnail: '/projects/spotistats-thumbnail.gif',
@@ -54,7 +54,7 @@ const projects: ProjectCardProps[] = [
     name: 'TabPet',
     description: 'A virtual companion for your browser',
     areas: ['Web', 'Game'],
-    skills: ['Chrome Extension', 'Javascript'],
+    skills: ['Chrome Extension', 'JavaScript'],
     startDate: '07/2024',
     endDate: 'Present',
     thumbnail: '/projects/tabpet-thumbnail.gif',
@@ -65,7 +65,7 @@ const projects: ProjectCardProps[] = [
     name: 'AgriSphere',
     description:
       'Web platform that analyzes crucial NASA geospatial data for agricultural workers • Built for NASA Space Apps 2024',
-    areas: ['Web', 'Hackathon', 'Data Science'],
+    areas: ['Web', 'Hackathon', 'API', 'Data Science'],
     skills: ['React', 'Flask', 'Node.js', 'Web Scraping'],
     startDate: '10/2024',
     thumbnail: '/projects/agrisphere-thumbnail.gif',
@@ -78,7 +78,7 @@ const projects: ProjectCardProps[] = [
     name: 'Melody Lane',
     description:
       'Take a trip down musical memory lane through your Spotify library',
-    areas: ['Web', 'Music'],
+    areas: ['Web', 'API', 'Music'],
     skills: ['React', 'TypeScript', 'Next.js'],
     startDate: '10/2024',
     endDate: 'Present',
@@ -89,8 +89,7 @@ const projects: ProjectCardProps[] = [
   },
   {
     name: 'sophli (Personal Website)',
-    description:
-      "Literally what you're looking at right now. Migrating from the old tech stack was definitely tricky, but totally worth it! More features coming some hehe",
+    description: 'this',
     areas: ['Web'],
     skills: ['React', 'TypeScript', 'Next.js'],
     startDate: '01/2025',
@@ -104,7 +103,7 @@ const projects: ProjectCardProps[] = [
     name: 'Hot on the Market',
     description:
       'Gamified platform to help aspiring investors make their next hot pick • Won Honorable Mention for Best Financial Hack in HackIllinois 2025 (1,000+ participants)',
-    areas: ['Web', 'Hackathon', 'Finance', 'Game'],
+    areas: ['Web', 'Hackathon', 'Finance', 'Game', 'API'],
     skills: ['React', 'TypeScript', 'Python', 'Chart.js', 'SQLite'],
     startDate: '02/2025',
     thumbnail: '/projects/hotonthemarket-thumbnail.gif',
@@ -129,16 +128,8 @@ const projects: ProjectCardProps[] = [
   {
     name: 'Jinship',
     description: 'Chatbot to navigate nonprofit and government websites',
-    areas: ['AI', 'Web', 'Web Scraping'],
-    skills: [
-      'RAG',
-      'LangChain',
-      'OpenAI API',
-      'React',
-      'MongoDB',
-      'FastAPI',
-      'Uvicorn',
-    ],
+    areas: ['AI', 'Web', 'API', 'Web Scraping'],
+    skills: ['RAG', 'LangChain', 'React', 'MongoDB', 'FastAPI', 'Uvicorn'],
     startDate: '09/2024',
     endDate: '12/2024',
   },
@@ -188,7 +179,7 @@ const projects: ProjectCardProps[] = [
   {
     name: 'Playtime',
     description: 'Story-driven multiplayer music game',
-    areas: ['Web', 'Music', 'Game'],
+    areas: ['Web', 'Music', 'Game', 'API'],
     skills: [
       'React',
       'TypeScript',
@@ -221,7 +212,7 @@ const projects: ProjectCardProps[] = [
     name: 'Dreamtopia',
     description: '2D adventure + platformer game; trying something new!! :)',
     areas: ['Game'],
-    skills: ['GoDot', 'GDScript'],
+    skills: ['Godot', 'GDScript'],
     startDate: '06/2025',
     endDate: 'Present',
     githubLink: 'https://github.com/soph-lin/dreamtopia',
@@ -252,7 +243,7 @@ const projects: ProjectCardProps[] = [
     description:
       'Warp to a new realm with an extension that lets you customize where your new tab takes you',
     areas: ['Web', 'Productivity'],
-    skills: ['Chrome Extension', 'Javascript'],
+    skills: ['Chrome Extension', 'JavaScript'],
     startDate: '08/2025',
     githubLink: 'https://github.com/soph-lin/wormhole',
     thumbnail: '/projects/wormhole-thumbnail.png',
@@ -260,7 +251,7 @@ const projects: ProjectCardProps[] = [
   {
     name: 'CareerDay (Founding Engineer)',
     description: 'Build the future of career exploration with AI',
-    areas: ['AI', 'Web', 'Education', 'Internship'],
+    areas: ['AI', 'Web', 'API', 'Education', 'Internship'],
     skills: ['React', 'TypeScript', 'Next.js', 'Python'],
     startDate: '07/2025',
     endDate: 'Present',
