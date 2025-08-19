@@ -1,3 +1,3 @@
 # Personal Website
 
-Project portfolio with a creative twist. More to come soon.
+Project portfolio! Made with love (also React, Next.js and Typescript).
