@@ -173,7 +173,7 @@ const projects: ProjectCardProps[] = [
     startDate: '02/2025',
     endDate: 'Present',
     thumbnail: '/projects/mymcat-thumbnail.gif',
-    demoLink: 'https://www.mymcat.ai',
+    demoLink: 'https://mymcat.ai',
     pinned: true,
   },
   {
